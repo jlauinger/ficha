@@ -6,7 +6,7 @@
  */
 export class Card {
 
-    constructor(private question: string, private answer: string) {}
+    constructor(public question: string, public answer: string) {}
 
     public check(answer: string) {
         return answer === this.answer;

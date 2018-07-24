@@ -1,0 +1,43 @@
+import {Card} from '../card/card.model';
+
+/*
+ * A collection represents a set of cards that belong together. Collections can combine cards of similar topic. Collections can be:
+ *  - created, deleted and edited in the management area
+ *  - learned in the training area, meaning that cards of the collection are shown to the user
+ */
+export class Collection {
+
+    private readonly cards: Card[];
+    private currentCardIndex: number;
+
+    constructor(public name: string = '') {
+        this.cards = [];
+        this.currentCardIndex = -1;
+    }
+
+    public size(): number {
+        return this.cards.length;
+    }
+
+    public add(card: Card) {
+        this.cards.push(card);
+    }
+
+    public nextCard(): Card {
+        if (this.cards.length === 0) {
+            throw new Error('Collection is empty.');
+        }
+
+        this.currentCardIndex = this.nextCardIndex();
+
+        return this.cards[this.currentCardIndex];
+    }
+
+    private nextCardIndex(): number {
+        if (this.currentCardIndex >= this.cards.length - 1) {
+            return 0;
+        }
+
+        return this.currentCardIndex + 1;
+    }
+}
