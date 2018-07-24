@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
     styleUrls: ['./root.component.css']
 })
 export class RootComponent {
-    title = 'ficha';
+
+    title = 'Ficha: Learn anything with cards!';
 }

@@ -1,8 +1,14 @@
-import { TestBed, async } from '@angular/core/testing';
+import {TestBed, async, ComponentFixture} from '@angular/core/testing';
 import { RootComponent } from './root.component';
+import {CardComponent} from '../../../trainer/components/card/card.component';
+import {ElementRef} from '@angular/core';
 
 
 describe('RootComponent', () => {
+
+    let fixture: ComponentFixture<RootComponent>;
+    let component: RootComponent;
+    let element: any;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -12,22 +18,24 @@ describe('RootComponent', () => {
         }).compileComponents();
     }));
 
-    it('should create the app', async(() => {
-        const fixture = TestBed.createComponent(RootComponent);
-        const app = fixture.debugElement.componentInstance;
-        expect(app).toBeTruthy();
+    beforeEach(async(() => {
+        fixture = TestBed.createComponent(RootComponent);
+        component = fixture.debugElement.componentInstance;
+        element = fixture.debugElement.nativeElement;
     }));
 
-    it(`should have as title 'app'`, async(() => {
-        const fixture = TestBed.createComponent(RootComponent);
-        const app = fixture.debugElement.componentInstance;
-        expect(app.title).toEqual('ficha');
-    }));
+    it('should create the app', () => {
+        expect(component).toBeTruthy();
+    });
+
+    it(`should contain ficha, learn and card in the title`, () => {
+        expect(component.title.toLowerCase()).toContain('ficha');
+        expect(component.title.toLowerCase()).toContain('learn');
+        expect(component.title.toLowerCase()).toContain('card');
+    });
 
     it('should render title in a h1 tag', async(() => {
-        const fixture = TestBed.createComponent(RootComponent);
         fixture.detectChanges();
-        const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('h1').textContent).toContain('Welcome to ficha!');
+        expect(element.querySelector('h1').textContent).toContain(component.title);
     }));
 });
