@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RootComponent} from './components/root/root.component';
+import {BaseRoutingModule} from './base-routing.module';
 
 @NgModule({
     declarations: [
@@ -9,7 +10,8 @@ import {RootComponent} from './components/root/root.component';
     ],
     imports: [
         BrowserModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        BaseRoutingModule
     ],
     providers: []
 })

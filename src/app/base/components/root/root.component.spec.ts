@@ -1,7 +1,7 @@
-import {TestBed, async, ComponentFixture} from '@angular/core/testing';
-import { RootComponent } from './root.component';
-import {CardComponent} from '../../../trainer/components/card/card.component';
-import {ElementRef} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {RootComponent} from './root.component';
+import {Router} from '@angular/router';
+import {RouterTestingModule} from '@angular/router/testing';
 
 
 describe('RootComponent', () => {
@@ -15,6 +15,12 @@ describe('RootComponent', () => {
             declarations: [
                 RootComponent
             ],
+            providers: [
+                { provide: Router, useClass: class {} }
+            ],
+            imports: [
+                RouterTestingModule
+            ]
         }).compileComponents();
     }));
 
