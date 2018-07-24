@@ -5,6 +5,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BaseModule} from '../base/base.module';
 import {TrainerComponent} from './components/trainer/trainer.component';
 import {TrainerRoutingModule} from './trainer-routing.module';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -12,6 +13,7 @@ import {TrainerRoutingModule} from './trainer-routing.module';
         TrainerComponent
     ],
     imports: [
+        FormsModule,
         BrowserModule,
         BrowserAnimationsModule,
         TrainerRoutingModule,

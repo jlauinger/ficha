@@ -1,3 +1,9 @@
 <div>
     {{ card.question }}
 </div>
+
+<div class="result">{{ result }}</div>
+
+<textarea [(ngModel)]="answer" title="Answer"></textarea>
+
+<button (click)="check()">Check!</button>
