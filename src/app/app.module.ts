@@ -1,14 +1,14 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { RootComponent } from './base/components/root/root.component';
+import {TrainerModule} from './trainer/trainer.module';
+import {BaseModule} from './base/base.module';
 
 @NgModule({
-    declarations: [
-        RootComponent
-    ],
+    declarations: [],
     imports: [
-        BrowserModule
+        TrainerModule,
+        BaseModule // has to come last due to catch-all route
     ],
     providers: [],
     bootstrap: [RootComponent]
