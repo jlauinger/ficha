@@ -88,6 +88,31 @@ describe('ManagerComponent', () => {
 
         expect(component.collection.size()).toBe(1);
     });
+
+    it('should have a delete button', () => {
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('#delete').innerText).toEqual('Delete Collection');
+    });
+
+    it('should delete the collection through the service when pressing the button', () => {
+        const collectionService: CollectionsStubService = TestBed.get(CollectionsService);
+        spyOn(collectionService, 'deleteCollection');
+        fixture.detectChanges();
+
+        fixture.nativeElement.querySelector('#delete').click();
+
+        expect(collectionService.deleteCollection).toHaveBeenCalledWith(1);
+    });
+
+    it('should navigate back home when pressing the delete button', () => {
+        spyOn(component.router, 'navigate');
+        fixture.detectChanges();
+
+        fixture.nativeElement.querySelector('#delete').click();
+
+        expect(component.router.navigate).toHaveBeenCalledWith(['/']);
+    });
 });
 
 
@@ -111,4 +136,6 @@ class CollectionsStubService {
     getCollection(): Collection {
         return this.collection;
     }
+
+    deleteCollection() {}
 }

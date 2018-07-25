@@ -12,6 +12,7 @@ app-edit {
     color: #444;
     text-decoration: none;
     background-color: #cacaca;
+    height: 2.5rem;
 }
 #exit:hover {
     color: #000;
@@ -32,6 +33,9 @@ button:hover {
 #add {
     background-color: #61c361;
     float: right;
+}
+#delete {
+    background-color: #e89393;
 }
 
 #name {

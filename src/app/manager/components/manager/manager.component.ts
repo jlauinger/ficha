@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Collection} from '../../../base/models/collection/collection.model';
 import {CollectionsService} from '../../../base/services/collections/collections.service';
 import {Card} from '../../../base/models/card/card.model';
@@ -14,6 +14,7 @@ export class ManagerComponent implements OnInit {
     collection: Collection;
 
     constructor(private route: ActivatedRoute,
+                public router: Router,
                 private collectionsService: CollectionsService) {}
 
     ngOnInit() {
@@ -27,5 +28,10 @@ export class ManagerComponent implements OnInit {
 
     public delete(card: Card) {
         this.collection.remove(card);
+    }
+
+    public deleteCollection() {
+        this.collectionsService.deleteCollection(this.collection.id);
+        this.router.navigate(['/']);
     }
 }

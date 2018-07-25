@@ -24,4 +24,6 @@ export class CollectionsService {
     public getCollections(): Collection[] {
         return [this.spanishCollection, this.germanCollection];
     }
+
+    public deleteCollection(id: number) {}
 }
