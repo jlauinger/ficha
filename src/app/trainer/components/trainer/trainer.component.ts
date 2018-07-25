@@ -16,7 +16,7 @@ export class TrainerComponent implements OnInit {
     ngOnInit() {
         this.collection = new Collection('SPANISH');
         this.collection.add(new Card('ser', 'to be (trait)'));
-        this.collection.add(new Card('ser', 'to be (state, position)'));
+        this.collection.add(new Card('estar', 'to be (state, position)'));
 
         this.next();
     }

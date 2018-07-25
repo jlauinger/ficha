@@ -8,9 +8,15 @@ import {Card} from '../../../base/models/card/card.model';
 })
 export class CardComponent {
 
-    @Input() card: Card;
+    @Input()
+    public set card(card: Card) {
+        this._card = card;
+        this.reset();
+    }
+
     @Output() next = new EventEmitter<void>();
 
+    _card: Card;
     answer = '';
     result = '';
     showAnswer = false;
@@ -18,7 +24,7 @@ export class CardComponent {
     public check() {
         this.showAnswer = true;
 
-        if (this.card.check(this.answer)) {
+        if (this._card.check(this.answer)) {
             this.result = 'Correct!';
             this.next.emit();
         } else {
@@ -28,5 +34,11 @@ export class CardComponent {
 
     public skip() {
         this.next.emit();
+    }
+
+    private reset() {
+        this.answer = '';
+        this.showAnswer = false;
+        this.result = '';
     }
 }

@@ -97,4 +97,15 @@ describe('CardComponent', () => {
 
         expect(component.next.emit).toHaveBeenCalled();
     }));
+
+    it('should reset to question state when the card changes', () => {
+        component.showAnswer = true;
+        component.answer = '42';
+
+        component.card = new Card('ser', 'to be (trait)');
+
+        expect(component.showAnswer).toBe(false);
+        expect(component.answer).toBe('');
+        expect(component.result).toBe('');
+    });
 });

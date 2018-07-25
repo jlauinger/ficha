@@ -1,4 +1,4 @@
-<div class="question">{{ card.question }}</div>
+<div class="question">{{ _card.question }}</div>
 
 <textarea [(ngModel)]="answer" class="answer" title="Answer" placeholder="Answer"></textarea>
 
@@ -7,4 +7,4 @@
 
 <div class="result">{{ result }}</div>
 
-<div class="solution" [hidden]="!showAnswer">{{ card.solution }}</div>
+<div class="solution" [hidden]="!showAnswer">{{ _card.solution }}</div>
