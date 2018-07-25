@@ -10,17 +10,48 @@ li {
     margin: 0 1rem 1rem 0;
 }
 li:hover {
-    background-color: #61c361;
+    background-color: #aac3aa;
 }
 
-li a {
+li a.collection {
     display: inline-block;
     width: 100%;
     min-height: 3rem;
-    padding: 1rem;
+    padding: 1rem 1rem 0 1rem;
     text-decoration: none;
     color: #333;
 }
-li a:focus, li a:visited {
+li a.collection:focus, li a.collection:visited {
     color: #333;
+}
+
+.name {
+    display: block;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+.size {
+    margin-top: .5rem;
+    display: block;
+}
+
+.buttons {
+    padding: 0 1rem 1rem 1rem;
+}
+
+a.train, a.manage {
+    display: inline-block;
+    margin-top: 1rem;
+    margin-right: .4rem;
+    padding: .5rem 1rem;
+    cursor: pointer;
+    background-color: #eee;
+    color: #444;
+    text-decoration: none;
+}
+a.train:hover, a.manage:hover {
+    color: #000;
+}
+a.train {
+    background-color: #61c361;
 }
