@@ -36,6 +36,14 @@ export class CardComponent {
         this.next.emit();
     }
 
+    public markCorrect() {
+        this.next.emit();
+    }
+
+    public markWrong() {
+        this.next.emit();
+    }
+
     private reset() {
         this.answer = '';
         this.showAnswer = false;

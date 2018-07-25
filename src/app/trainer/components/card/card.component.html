@@ -1,10 +1,12 @@
-<div class="question">{{ _card.question }}</div>
+<div id="question">{{ _card.question }}</div>
 
-<textarea [(ngModel)]="answer" class="answer" title="Answer" placeholder="Answer"></textarea>
+<textarea [(ngModel)]="answer" id="answer" title="Answer" placeholder="Answer"></textarea>
 
-<button (click)="check()" class="check">View Answer</button>
-<button (click)="skip()" class="skip">Skip</button>
+<button (click)="check()" [hidden]="showAnswer" id="check">View Answer</button>
+<button (click)="markCorrect()" [hidden]="!showAnswer" id="markcorrect">This was correct!</button>
+<button (click)="markWrong()" [hidden]="!showAnswer" id="markwrong">Ok, wrong. Next!</button>
+<button (click)="skip()" id="skip">Skip</button>
 
-<div class="result">{{ result }}</div>
+<div id="result">{{ result }}</div>
 
-<div class="solution" [hidden]="!showAnswer">{{ _card.solution }}</div>
+<div id="solution" [hidden]="!showAnswer">{{ _card.solution }}</div>
