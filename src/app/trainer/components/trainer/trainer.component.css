@@ -1,0 +1,40 @@
+.clearfix {
+    display: block;
+    clear: both;
+}
+
+.separator {
+    border-top: 1px solid #aaa;
+    margin: .5rem 0;
+}
+
+app-card {
+    display: block;
+    margin-top: 1rem;
+}
+
+#name {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.2rem;
+    display: block;
+}
+
+#progressContainer {
+    color: #777;
+    font-size: .9rem;
+    display: inline-block;
+    padding-top: .6rem;
+}
+#index, #size {
+    font-weight: bold;
+}
+
+#remainingContainer {
+    color: #777;
+    font-size: .9rem;
+    float: right;
+}
+#remaining {
+    font-size: 1.5rem;
+}

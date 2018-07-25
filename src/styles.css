@@ -1,5 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+}
 
 body {
     background-color: #fff;
+}
+
+app-trainer  {
+    width: 800px;
+    display: block;
 }

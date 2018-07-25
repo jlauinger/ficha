@@ -27,10 +27,7 @@ describe('TrainerComponent', () => {
     beforeEach(async(() => {
         fixture = TestBed.createComponent(TrainerComponent);
         component = fixture.debugElement.componentInstance;
-
-        component.collection = new Collection('SPANISH');
-        component.collection.add(new Card('ser', 'to be (trait)'));
-        component.collection.add(new Card('estar', 'to be (state, location)'));
+        fixture.detectChanges();
     }));
 
     it('should create', async(() => {
@@ -40,7 +37,24 @@ describe('TrainerComponent', () => {
     it('should display title of current collection in a bold tag', () => {
         fixture.detectChanges();
 
-        expect(fixture.nativeElement.querySelector('b').innerText).toEqual('SPANISH');
+        expect(fixture.nativeElement.querySelector('b#name').innerText).toEqual('SPANISH');
+    });
+
+    it('should display the size and current index of the collection', () => {
+        component.next();
+
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('#index').innerText).toEqual('2');
+        expect(fixture.nativeElement.querySelector('#size').innerText).toEqual('2');
+    });
+
+    it('should display the remaining cards', () => {
+        component.next();
+
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('#remaining').innerText).toEqual('1');
     });
 
     it('should display the next card when receiving the next event', () => {
@@ -64,6 +78,7 @@ class CollectionsStubService {
     getCollection() {
         const collection = new Collection('SPANISH');
         collection.add(new Card('ser', 'to be (trait)'));
+        collection.add(new Card('estar', 'to be (state, location)'));
         return collection;
     }
 }

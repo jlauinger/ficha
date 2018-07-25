@@ -17,7 +17,7 @@ export class TrainerComponent implements OnInit {
 
     ngOnInit() {
         this.collection = this.collectionsService.getCollection();
-        this.next();
+        this.next();#
     }
 
     next() {

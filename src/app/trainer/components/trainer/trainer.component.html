@@ -1,5 +1,17 @@
-<div>
-    Current collection: <b>{{ collection.name }}</b>
-</div>
+<b id="name">{{ collection.name }}</b>
+
+<span id="progressContainer">
+    Progress: card
+    <span id="index">{{ collection.currentCardNumber() }}</span>
+    of
+    <span id="size">{{ collection.size() }}</span>
+</span>
+
+<span id="remainingContainer">
+    Remaining cards:
+    <span id="remaining">{{ collection.remainingCards() }}</span>
+</span>
+
+<div class="clearfix separator"></div>
 
 <app-card [card]="card" (next)="next()"></app-card>

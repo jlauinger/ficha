@@ -33,6 +33,14 @@ export class Collection {
         return this.cards[this.currentCardIndex];
     }
 
+    public currentCardNumber() {
+        return this.currentCardIndex + 1;
+    }
+
+    public remainingCards() {
+        return this.cards.length - this.currentCardIndex;
+    }
+
     private nextCardIndex(): number {
         if (this.currentCardIndex >= this.cards.length - 1) {
             return 0;

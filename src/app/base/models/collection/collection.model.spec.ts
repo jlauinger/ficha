@@ -53,4 +53,23 @@ describe('Collection', () => {
         expect(collection.nextCard()).toBe(estarCard);
         expect(collection.nextCard()).toBe(serCard);
     });
+
+    it('should inform the current index of the active card', () => {
+        collection.add(serCard);
+        collection.add(estarCard);
+
+        collection.nextCard();
+
+        expect(collection.currentCardNumber()).toBe(1);
+    });
+
+    it('should inform how many cards are left to learn', () => {
+        collection.add(serCard);
+        collection.add(estarCard);
+
+        collection.nextCard();
+        collection.nextCard();
+
+        expect(collection.remainingCards()).toBe(1);
+    });
 });
