@@ -4,6 +4,7 @@ import {Collection} from '../../../base/models/collection/collection.model';
 import {Injectable} from '@angular/core';
 import {CollectionsService} from '../../../base/services/collections/collections.service';
 import {By} from '@angular/platform-browser';
+import {RouterTestingModule} from '@angular/router/testing';
 
 
 describe('CollectionsComponent', () => {
@@ -18,6 +19,9 @@ describe('CollectionsComponent', () => {
             ],
             providers: [
                 { provide: CollectionsService, useClass: CollectionsStubService }
+            ],
+            imports: [
+                RouterTestingModule
             ]
         }).compileComponents();
     }));
@@ -31,10 +35,10 @@ describe('CollectionsComponent', () => {
         expect(component).toBeTruthy();
     }));
 
-    it('should display a list with available collections', () => {
+    it('should display a list with available collections as links', () => {
         fixture.detectChanges();
 
-        expect(fixture.debugElement.queryAll(By.css('li')).map(
+        expect(fixture.debugElement.queryAll(By.css('li a .name')).map(
             (node) => node.nativeElement.innerText))
             .toEqual(['Spanish', 'German']);
     });
@@ -45,8 +49,8 @@ describe('CollectionsComponent', () => {
 class CollectionsStubService {
     getCollections(): Collection[] {
         return [
-            new Collection('Spanish'),
-            new Collection('German')
+            new Collection(1, 'Spanish'),
+            new Collection(2, 'German')
         ];
     }
 }

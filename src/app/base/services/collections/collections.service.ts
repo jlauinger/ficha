@@ -5,8 +5,8 @@ import {Card} from '../../models/card/card.model';
 @Injectable()
 export class CollectionsService {
 
-    private spanishCollection = new Collection('Spanish');
-    private germanCollection = new Collection('German');
+    private spanishCollection = new Collection(1, 'Spanish');
+    private germanCollection = new Collection(2, 'German');
 
     constructor() {
         this.spanishCollection.add(new Card('ser', 'to be (trait)'));

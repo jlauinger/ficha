@@ -93,7 +93,7 @@ class CardStubComponent {
 @Injectable()
 class CollectionsStubService {
     getCollection(collectionId: number) {
-        const collection = new Collection('SPANISH');
+        const collection = new Collection(1,'SPANISH');
         collection.add(new Card('ser', 'to be (trait)'));
         collection.add(new Card('estar', 'to be (state, location)'));
         return collection;

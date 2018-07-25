@@ -10,7 +10,7 @@ export class Collection {
     private readonly cards: Card[];
     private currentCardIndex: number;
 
-    constructor(public name: string = '') {
+    constructor(public id: number, public name: string = '') {
         this.cards = [];
         this.currentCardIndex = -1;
     }

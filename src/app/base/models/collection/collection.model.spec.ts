@@ -8,7 +8,7 @@ describe('Collection', () => {
     let estarCard: Card;
 
     beforeEach(() => {
-        collection = new Collection();
+        collection = new Collection(1);
         serCard = new Card('ser', 'to be (trait)');
         estarCard = new Card('estar', 'to be (state, location)');
     });
@@ -19,7 +19,7 @@ describe('Collection', () => {
     });
 
     it('should have the correct name if specified', () => {
-        const namedCollection = new Collection('SPANISH');
+        const namedCollection = new Collection(1, 'SPANISH');
 
         expect(namedCollection.name).toBe('SPANISH');
     });
