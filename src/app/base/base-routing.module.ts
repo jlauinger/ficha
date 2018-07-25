@@ -1,13 +1,7 @@
 import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 
-const baseRoutes: Routes = [
-    {
-        path: '',
-        redirectTo: '/train',
-        pathMatch: 'full'
-    }
-];
+const baseRoutes: Routes = [];
 
 @NgModule({
     imports: [

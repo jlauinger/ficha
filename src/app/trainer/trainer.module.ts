@@ -7,11 +7,13 @@ import {TrainerComponent} from './components/trainer/trainer.component';
 import {TrainerRoutingModule} from './trainer-routing.module';
 import {FormsModule} from '@angular/forms';
 import {AutosizeModule} from 'ngx-autosize';
+import {CollectionsComponent} from './components/collections/collections.component';
 
 @NgModule({
     declarations: [
         CardComponent,
-        TrainerComponent
+        TrainerComponent,
+        CollectionsComponent
     ],
     imports: [
         FormsModule,
