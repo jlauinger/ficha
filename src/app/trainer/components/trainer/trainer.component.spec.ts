@@ -121,7 +121,7 @@ class CollectionsStubService {
         this.collection.add(new Card('estar', 'to be (state, location)'));
     }
 
-    getCollection(collectionId: number) {
+    getCollection() {
         return this.collection;
     }
 }
