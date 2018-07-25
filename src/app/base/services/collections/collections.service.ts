@@ -26,4 +26,8 @@ export class CollectionsService {
     }
 
     public deleteCollection(id: number) {}
+
+    public createCollection(name: string = ''): Collection {
+        return new Collection(1, name);
+    }
 }

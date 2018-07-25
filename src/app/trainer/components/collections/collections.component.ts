@@ -10,10 +10,16 @@ import {Collection} from '../../../base/models/collection/collection.model';
 export class CollectionsComponent implements OnInit {
 
     collections: Collection[];
+    newName = '';
 
     constructor(private collectionsService: CollectionsService) {}
 
     ngOnInit(): void {
         this.collections = this.collectionsService.getCollections();
+    }
+
+    public new() {
+        const newCollection = this.collectionsService.createCollection(this.newName);
+        this.collections.push(newCollection);
     }
 }

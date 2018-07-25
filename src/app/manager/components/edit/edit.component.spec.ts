@@ -3,6 +3,7 @@ import {FormsModule} from '@angular/forms';
 import {AutosizeModule} from 'ngx-autosize';
 import {Card} from '../../../base/models/card/card.model';
 import {EditComponent} from './edit.component';
+import {CollectionsService} from '../../../base/services/collections/collections.service';
 
 describe('EditComponent', () => {
 
@@ -38,6 +39,20 @@ describe('EditComponent', () => {
 
         expect(fixture.nativeElement.querySelector('input#question').value).toBe('question');
         expect(fixture.nativeElement.querySelector('input#solution').value).toBe('correct solution');
+    }));
+
+    it('should reflect input field changes to question and solution', fakeAsync(() => {
+        fixture.detectChanges();
+        const questionElement = fixture.nativeElement.querySelector('#question');
+        questionElement.value = 'new question';
+        questionElement.dispatchEvent(new Event('input'));
+        const solutionElement = fixture.nativeElement.querySelector('#solution');
+        solutionElement.value = 'new solution';
+        solutionElement.dispatchEvent(new Event('input'));
+        tick();
+
+        expect(component.card.question).toBe('new question');
+        expect(component.card.solution).toBe('new solution');
     }));
 
     it('should have a delete button', () => {

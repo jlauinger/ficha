@@ -61,6 +61,16 @@ describe('ManagerComponent', () => {
         expect(fixture.nativeElement.querySelector('input#name').value).toBe('SPANISH');
     }));
 
+    it('should reflect input changes to the name', fakeAsync(() => {
+        fixture.detectChanges();
+        const element = fixture.nativeElement.querySelector('#name');
+        element.value = 'new name';
+        element.dispatchEvent(new Event('input'));
+        tick();
+
+        expect(component.collection.name).toBe('new name');
+    }));
+
     it('should have an exit button', () => {
         fixture.detectChanges();
 

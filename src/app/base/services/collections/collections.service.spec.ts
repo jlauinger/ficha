@@ -20,4 +20,11 @@ describe('CollectionsService', () => {
 
         expect(collections.length).toBeGreaterThan(0);
     });
+
+    it('should return a new collection with specified name', () => {
+        const collection = service.createCollection('SPANISH');
+
+        expect(collection.name).toBe('SPANISH');
+        expect(collection.size()).toBe(0);
+    });
 });

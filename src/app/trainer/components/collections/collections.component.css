@@ -13,7 +13,11 @@ li:hover {
     background-color: #aac3aa;
 }
 
-li a.collection {
+li.new, li.new:hover {
+    background-color: #eee;
+}
+
+li .collection {
     display: inline-block;
     width: 100%;
     min-height: 3rem;
@@ -48,10 +52,31 @@ a.train, a.manage {
     background-color: #eee;
     color: #444;
     text-decoration: none;
+    height: 2.5rem;
 }
 a.train:hover, a.manage:hover {
     color: #000;
 }
 a.train {
     background-color: #61c361;
+}
+
+button {
+    height: 2.5rem;
+    border: none;
+    margin-right: .4rem;
+    padding: 0 1rem;
+    cursor: pointer;
+    background-color: #cacaca;
+    color: #444;
+}
+button:hover {
+    color: #000;
+}
+button:focus {
+    outline: none;
+}
+#new {
+    background-color: #cacaca;
+    margin-top: 1rem;
 }

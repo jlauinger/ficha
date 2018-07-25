@@ -9,4 +9,17 @@
             <a [routerLink]="['/', 'manage', collection.id]" class="manage">Manage</a>
         </div>
     </li>
+
+    <li class="new">
+        <div class="collection">
+            <span class="name">
+                <input type="text" [(ngModel)]="newName" (keyup.enter)="new()"
+                       id="newName" placeholder="New..." title="New Name" />
+            </span>
+            <span class="size">&nbsp;</span>
+        </div>
+        <div class="buttons">
+            <button id="new" (click)="new()">Create New Collection</button>
+        </div>
+    </li>
 </ul>
