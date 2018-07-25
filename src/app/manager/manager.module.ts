@@ -6,10 +6,12 @@ import {BaseModule} from '../base/base.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {ManagerRoutingModule} from './manager-routing.module';
 import {ManagerComponent} from './components/manager/manager.component';
+import {EditComponent} from './components/edit/edit.component';
 
 @NgModule({
     declarations: [
-        ManagerComponent
+        ManagerComponent,
+        EditComponent
     ],
     imports: [
         FormsModule,

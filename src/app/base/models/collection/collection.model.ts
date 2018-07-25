@@ -7,7 +7,8 @@ import {Card} from '../card/card.model';
  */
 export class Collection {
 
-    private readonly cards: Card[];
+    public cards: Card[];
+
     private currentCardIndex: number;
 
     constructor(public id: number, public name: string = '') {

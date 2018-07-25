@@ -2,9 +2,10 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {ManagerComponent} from './manager.component';
 import {CollectionsService} from '../../../base/services/collections/collections.service';
 import {Collection} from '../../../base/models/collection/collection.model';
-import {Injectable} from '@angular/core';
+import {Component, Injectable, Input} from '@angular/core';
 import {Card} from '../../../base/models/card/card.model';
 import {ActivatedRoute} from '@angular/router';
+import {RouterTestingModule} from '@angular/router/testing';
 
 
 describe('ManagerComponent', () => {
@@ -16,7 +17,8 @@ describe('ManagerComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                ManagerComponent
+                ManagerComponent,
+                EditStubComponent
             ],
             providers: [
                 { provide: CollectionsService, useClass: CollectionsStubService },
@@ -24,6 +26,9 @@ describe('ManagerComponent', () => {
                                 get: function() { return collectionId; }
                             }}}}
             ],
+            imports: [
+                RouterTestingModule
+            ]
         }).compileComponents();
     }));
 
@@ -51,8 +56,19 @@ describe('ManagerComponent', () => {
 
         expect(fixture.nativeElement.querySelector('#name').innerText).toBe('SPANISH');
     });
+
+    it('should have an exit button', () => {
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('#exit').innerText).toEqual('Back');
+    });
 });
 
+
+@Component({selector: 'app-edit', template: ''})
+class EditStubComponent {
+    @Input() card: Card;
+}
 
 @Injectable()
 class CollectionsStubService {
@@ -65,7 +81,7 @@ class CollectionsStubService {
         this.collection.add(new Card('estar', 'to be (state, location)'));
     }
 
-    getCollection() {
+    getCollection(): Collection {
         return this.collection;
     }
 }

@@ -112,7 +112,6 @@ class CardStubComponent {
 
 @Injectable()
 class CollectionsStubService {
-
     collection: Collection;
 
     constructor() {

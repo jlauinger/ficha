@@ -1,0 +1,17 @@
+app-edit {
+    display: block;
+}
+
+#exit {
+    display: inline-block;
+    margin-top: 1rem;
+    margin-right: .4rem;
+    padding: .6rem 1rem;
+    cursor: pointer;
+    color: #444;
+    text-decoration: none;
+    background-color: #e89393;
+}
+#exit:hover {
+    color: #000;
+}

@@ -1,4 +1,5 @@
-<div class="nameContainer">
-    Manage:
-    <b id="name">{{ collection.name }}</b>
-</div>
+<b id="name">{{ collection.name }}</b>
+
+<app-edit *ngFor="let card of collection.cards" [card]="card"></app-edit>
+
+<a [routerLink]="['/']" id="exit">Back</a>
