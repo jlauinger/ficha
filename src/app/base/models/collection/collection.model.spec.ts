@@ -73,4 +73,10 @@ describe('Collection', () => {
 
         expect(collection.nextCard()).toBe(serCard);
     });
+
+    it('should remove the correct card', () => {
+        collection.remove(estarCard);
+
+        expect(collection.cards).toEqual([serCard]);
+    });
 });

@@ -39,4 +39,19 @@ describe('EditComponent', () => {
         expect(fixture.nativeElement.querySelector('input#question').value).toBe('question');
         expect(fixture.nativeElement.querySelector('input#solution').value).toBe('correct solution');
     }));
+
+    it('should have a delete button', () => {
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('button#delete').innerText).toBe('Delete');
+    });
+
+    it('should emit an event when clicking the delete button', fakeAsync(() => {
+        spyOn(component.deleted, 'emit');
+
+        fixture.nativeElement.querySelector('#delete').click();
+        tick();
+
+        expect(component.deleted.emit).toHaveBeenCalled();
+    }));
 });

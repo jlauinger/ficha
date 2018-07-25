@@ -1,2 +1,4 @@
-<input type="text" [(ngModel)]="card.question" id="question" />
-<input type="text" [(ngModel)]="card.solution" id="solution" />
+<input type="text" [(ngModel)]="card.question" id="question" title="Question" />
+<input type="text" [(ngModel)]="card.solution" id="solution" title="Solution" />
+
+<button id="delete" (click)="delete()">Delete</button>

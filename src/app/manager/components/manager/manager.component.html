@@ -1,5 +1,8 @@
 <b id="name">{{ collection.name }}</b>
 
-<app-edit *ngFor="let card of collection.cards" [card]="card"></app-edit>
+<button id="add" (click)="add()">Add A Card</button>
+
+<app-edit *ngFor="let card of collection.cards"
+          [card]="card" (deleted)="delete(card)"></app-edit>
 
 <a [routerLink]="['/']" id="exit">Back</a>

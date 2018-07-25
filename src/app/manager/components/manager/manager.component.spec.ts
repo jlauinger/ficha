@@ -2,10 +2,11 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {ManagerComponent} from './manager.component';
 import {CollectionsService} from '../../../base/services/collections/collections.service';
 import {Collection} from '../../../base/models/collection/collection.model';
-import {Component, Injectable, Input} from '@angular/core';
+import {Component, EventEmitter, Injectable, Input, Output} from '@angular/core';
 import {Card} from '../../../base/models/card/card.model';
 import {ActivatedRoute} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
+import {By} from '@angular/platform-browser';
 
 
 describe('ManagerComponent', () => {
@@ -62,12 +63,35 @@ describe('ManagerComponent', () => {
 
         expect(fixture.nativeElement.querySelector('#exit').innerText).toEqual('Back');
     });
+
+    it('should have a button to add a new card', () => {
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('#add').innerText).toEqual('Add A Card');
+    });
+
+    it('should add a card to the collection when pressing the button', () => {
+        fixture.detectChanges();
+
+        fixture.nativeElement.querySelector('#add').click();
+
+        expect(component.collection.size()).toBe(3);
+    });
+
+    it('should remove card from collection when the event is emitted', () => {
+        fixture.detectChanges();
+
+        fixture.debugElement.query(By.directive(EditStubComponent)).componentInstance.deleted.emit();
+
+        expect(component.collection.size()).toBe(1);
+    });
 });
 
 
 @Component({selector: 'app-edit', template: ''})
 class EditStubComponent {
     @Input() card: Card;
+    @Output() deleted = new EventEmitter<void>();
 }
 
 @Injectable()

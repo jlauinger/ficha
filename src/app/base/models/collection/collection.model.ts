@@ -24,6 +24,10 @@ export class Collection {
         this.cards.push(card);
     }
 
+    public remove(card: Card) {
+        this.cards.splice(this.cards.indexOf(card), 1);
+    }
+
     public nextCard(): Card {
         if (this.cards.length === 0) {
             throw new Error('Collection is empty.');

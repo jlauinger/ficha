@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Collection} from '../../../base/models/collection/collection.model';
 import {CollectionsService} from '../../../base/services/collections/collections.service';
+import {Card} from '../../../base/models/card/card.model';
 
 @Component({
     selector: 'app-manager',
@@ -18,5 +19,13 @@ export class ManagerComponent implements OnInit {
     ngOnInit() {
         const collectionId = Number(this.route.snapshot.paramMap.get('id'));
         this.collection = this.collectionsService.getCollection(collectionId);
+    }
+
+    public add() {
+        this.collection.add(new Card('', ''));
+    }
+
+    public delete(card: Card) {
+        this.collection.remove(card);
     }
 }
