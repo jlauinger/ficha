@@ -1,9 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {TrainerComponent} from './trainer.component';
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Injectable, Input, Output} from '@angular/core';
 import {Card} from '../../../base/models/card/card.model';
 import {Collection} from '../../../base/models/collection/collection.model';
 import {By} from '@angular/platform-browser';
+import {CollectionsService} from '../../../base/services/collections/collections.service';
 
 
 describe('TrainerComponent', () => {
@@ -17,6 +18,9 @@ describe('TrainerComponent', () => {
                 TrainerComponent,
                 CardStubComponent
             ],
+            providers: [
+                { provide: CollectionsService, useClass: CollectionsStubService }
+            ]
         }).compileComponents();
     }));
 
@@ -53,4 +57,13 @@ describe('TrainerComponent', () => {
 class CardStubComponent {
     @Input() card: Card;
     @Output() next = new EventEmitter<void>();
+}
+
+@Injectable()
+class CollectionsStubService {
+    getCollection() {
+        const collection = new Collection('SPANISH');
+        collection.add(new Card('ser', 'to be (trait)'));
+        return collection;
+    }
 }
