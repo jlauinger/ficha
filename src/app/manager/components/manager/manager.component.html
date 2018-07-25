@@ -1,6 +1,8 @@
-<b id="name">{{ collection.name }}</b>
-
+<input type="text" [(ngModel)]="collection.name" id="name" />
 <button id="add" (click)="add()">Add A Card</button>
+
+<div class="clearfix"></div>
+<div class="padding-top-1"></div>
 
 <app-edit *ngFor="let card of collection.cards"
           [card]="card" (deleted)="delete(card)"></app-edit>

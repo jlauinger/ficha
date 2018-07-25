@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {ManagerComponent} from './manager.component';
 import {CollectionsService} from '../../../base/services/collections/collections.service';
 import {Collection} from '../../../base/models/collection/collection.model';
@@ -7,6 +7,7 @@ import {Card} from '../../../base/models/card/card.model';
 import {ActivatedRoute} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {By} from '@angular/platform-browser';
+import {FormsModule} from '@angular/forms';
 
 
 describe('ManagerComponent', () => {
@@ -28,7 +29,8 @@ describe('ManagerComponent', () => {
                             }}}}
             ],
             imports: [
-                RouterTestingModule
+                RouterTestingModule,
+                FormsModule
             ]
         }).compileComponents();
     }));
@@ -52,11 +54,12 @@ describe('ManagerComponent', () => {
         expect(collectionService.getCollection).toHaveBeenCalledWith(42);
     });
 
-    it('should display the collection name', () => {
+    it('should display the collection name in an input field', fakeAsync(() => {
         fixture.detectChanges();
+        tick();
 
-        expect(fixture.nativeElement.querySelector('#name').innerText).toBe('SPANISH');
-    });
+        expect(fixture.nativeElement.querySelector('input#name').value).toBe('SPANISH');
+    }));
 
     it('should have an exit button', () => {
         fixture.detectChanges();

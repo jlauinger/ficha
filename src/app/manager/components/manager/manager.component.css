@@ -4,7 +4,7 @@ app-edit {
 
 #exit {
     display: inline-block;
-    margin-top: 1rem;
+    margin-top: 2rem;
     margin-right: .4rem;
     padding: .6rem 1rem;
     cursor: pointer;
@@ -14,4 +14,35 @@ app-edit {
 }
 #exit:hover {
     color: #000;
+}
+
+button {
+    height: 2.5rem;
+    border: none;
+    padding: 0 1rem;
+    cursor: pointer;
+    background-color: #cacaca;
+    color: #444;
+}
+button:hover {
+    color: #000;
+}
+
+#add {
+    background-color: #61c361;
+    float: right;
+}
+
+#name {
+    display: inline-block;
+    border: none;
+    border-bottom: 1px solid #cacaca;
+    background-color: #fff;
+    padding: .4rem 0;
+    font-size: 1.2rem;
+    color: #444;
+    width: 600px;
+}
+#name:focus {
+    outline: none;
 }
