@@ -5,12 +5,14 @@ import {Card} from '../../../base/models/card/card.model';
 import {Collection} from '../../../base/models/collection/collection.model';
 import {By} from '@angular/platform-browser';
 import {CollectionsService} from '../../../base/services/collections/collections.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 describe('TrainerComponent', () => {
 
     let fixture: ComponentFixture<TrainerComponent>;
     let component: TrainerComponent;
+    let collectionId = '0';
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -19,7 +21,10 @@ describe('TrainerComponent', () => {
                 CardStubComponent
             ],
             providers: [
-                { provide: CollectionsService, useClass: CollectionsStubService }
+                { provide: CollectionsService, useClass: CollectionsStubService },
+                { provide: ActivatedRoute, useValue: { snapshot: { paramMap: {
+                                get: function() { return collectionId; }
+                            }}}}
             ]
         }).compileComponents();
     }));
@@ -27,7 +32,6 @@ describe('TrainerComponent', () => {
     beforeEach(async(() => {
         fixture = TestBed.createComponent(TrainerComponent);
         component = fixture.debugElement.componentInstance;
-        fixture.detectChanges();
     }));
 
     it('should create', async(() => {
@@ -41,8 +45,9 @@ describe('TrainerComponent', () => {
     });
 
     it('should display the size and current index of the collection', () => {
-        component.next();
+        fixture.detectChanges();
 
+        component.next();
         fixture.detectChanges();
 
         expect(fixture.nativeElement.querySelector('#index').innerText).toEqual('2');
@@ -50,19 +55,31 @@ describe('TrainerComponent', () => {
     });
 
     it('should display the remaining cards', () => {
-        component.next();
+        fixture.detectChanges();
 
+        component.next();
         fixture.detectChanges();
 
         expect(fixture.nativeElement.querySelector('#remaining').innerText).toEqual('1');
     });
 
     it('should display the next card when receiving the next event', () => {
+        fixture.detectChanges();
         const oldCard = component.card;
 
         fixture.debugElement.query(By.directive(CardStubComponent)).componentInstance.next.emit();
 
         expect(component.card).not.toBe(oldCard);
+    });
+
+    it('should request the correct collection from CollectionService', () => {
+        const collectionService: CollectionsService = TestBed.get(CollectionsService);
+        spyOn(collectionService, 'getCollection').and.callThrough();
+        collectionId = '42';
+
+        fixture.detectChanges();
+
+        expect(collectionService.getCollection).toHaveBeenCalledWith(42);
     });
 });
 
@@ -75,7 +92,7 @@ class CardStubComponent {
 
 @Injectable()
 class CollectionsStubService {
-    getCollection() {
+    getCollection(collectionId: number) {
         const collection = new Collection('SPANISH');
         collection.add(new Card('ser', 'to be (trait)'));
         collection.add(new Card('estar', 'to be (state, location)'));

@@ -7,7 +7,7 @@ export class CollectionsService {
 
     constructor() {}
 
-    getCollection() {
+    getCollection(id: number) {
         const collection = new Collection('SPANISH');
 
         collection.add(new Card('ser', 'to be (trait)'));

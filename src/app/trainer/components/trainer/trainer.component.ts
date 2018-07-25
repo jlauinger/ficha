@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Card} from '../../../base/models/card/card.model';
 import {Collection} from '../../../base/models/collection/collection.model';
 import {CollectionsService} from '../../../base/services/collections/collections.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-trainer',
@@ -13,10 +14,12 @@ export class TrainerComponent implements OnInit {
     collection: Collection;
     card: Card;
 
-    constructor(private collectionsService: CollectionsService) {}
+    constructor(private route: ActivatedRoute,
+                private collectionsService: CollectionsService) {}
 
     ngOnInit() {
-        this.collection = this.collectionsService.getCollection();
+        const collectionId = Number(this.route.snapshot.paramMap.get('id'));
+        this.collection = this.collectionsService.getCollection(collectionId);
         this.next();
     }
 
