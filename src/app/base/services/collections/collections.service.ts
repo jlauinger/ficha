@@ -5,15 +5,23 @@ import {Card} from '../../models/card/card.model';
 @Injectable()
 export class CollectionsService {
 
-    constructor() {}
+    private spanishCollection = new Collection('Spanish');
+    private germanCollection = new Collection('German');
 
-    getCollection(id: number) {
-        const collection = new Collection('SPANISH');
+    constructor() {
+        this.spanishCollection.add(new Card('ser', 'to be (trait)'));
+        this.spanishCollection.add(new Card('estar', 'to be (state, location)'));
+        this.spanishCollection.add(new Card('la canción', 'the song'));
 
-        collection.add(new Card('ser', 'to be (trait)'));
-        collection.add(new Card('estar', 'to be (state, location)'));
-        collection.add(new Card('la canción', 'the song'));
+        this.germanCollection.add(new Card('gehen', 'to walk'));
+        this.germanCollection.add(new Card('rennen', 'to run'));
+    }
 
-        return collection;
+    public getCollection(id: number): Collection {
+        return this.spanishCollection;
+    }
+
+    public getCollections(): Collection[] {
+        return [this.spanishCollection, this.germanCollection];
     }
 }
