@@ -41,6 +41,10 @@ export class Collection {
         return this.cards.length - this.currentCardIndex;
     }
 
+    public reset() {
+        this.currentCardIndex = -1;
+    }
+
     private nextCardIndex(): number {
         if (this.currentCardIndex >= this.cards.length - 1) {
             return 0;
