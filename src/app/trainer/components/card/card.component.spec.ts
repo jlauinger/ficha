@@ -24,7 +24,7 @@ describe('CardComponent', () => {
         fixture = TestBed.createComponent(CardComponent);
         component = fixture.debugElement.componentInstance;
 
-        component.card = new Card('ser', 'to be (trait)');
+        component.card = new Card('question', 'correct solution');
     }));
 
     it('should create', async(() => {
@@ -34,18 +34,20 @@ describe('CardComponent', () => {
     it('should display the card question', () => {
         fixture.detectChanges();
 
-        expect(fixture.nativeElement.querySelector('div').innerText).toEqual('ser');
+        expect(fixture.nativeElement.querySelector('.question').innerText).toEqual('question');
     });
 
-    it('should display a text box to answer and a submit button', () => {
+    it('should display a text box to solution and a submit button', () => {
+        fixture.detectChanges();
+
         expect(fixture.nativeElement.querySelector('textarea')).toBeTruthy();
-        expect(fixture.nativeElement.querySelector('button').innerText).toBe('Check!');
+        expect(fixture.nativeElement.querySelector('button.check').innerText).toBe('View Answer');
     });
 
-    it('should show a message when clicking check with a wrong answer', fakeAsync(() => {
+    it('should show a message when clicking check with a wrong solution', fakeAsync(() => {
         fixture.detectChanges();
         const element = fixture.nativeElement.querySelector('textarea');
-        element.value = 'wrong answer';
+        element.value = 'wrong solution';
         element.dispatchEvent(new Event('input'));
         tick();
 
@@ -53,18 +55,44 @@ describe('CardComponent', () => {
         tick();
         fixture.detectChanges();
 
-        expect(fixture.nativeElement.querySelector('.result').innerText).toContain('Wrong answer!');
+        expect(fixture.nativeElement.querySelector('.result').innerText).toContain('Wrong solution!');
     }));
 
-    it('should emit an event when clicking check with the correct answer', fakeAsync(() => {
+    it('should emit an event when clicking check with the correct solution', fakeAsync(() => {
         fixture.detectChanges();
         const element = fixture.nativeElement.querySelector('textarea');
-        element.value = 'to be (trait)';
+        element.value = 'correct solution';
         element.dispatchEvent(new Event('input'));
         spyOn(component.next, 'emit');
         tick();
 
         fixture.nativeElement.querySelector('button').click();
+        tick();
+
+        expect(component.next.emit).toHaveBeenCalled();
+    }));
+
+    it('should show the solution after clicking check', () => {
+        fixture.detectChanges();
+        expect(fixture.nativeElement.querySelector('.solution').hasAttribute('hidden')).toEqual(true);
+
+        fixture.nativeElement.querySelector('button').click();
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('.solution').innerText).toBe('correct solution');
+        expect(fixture.nativeElement.querySelector('.solution').hasAttribute('hidden')).toEqual(false);
+    });
+
+    it('should display a skip button', () => {
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('button.skip').innerText).toBe('Skip');
+    });
+
+    it('should emit a next event when clicking skip', fakeAsync(() => {
+        spyOn(component.next, 'emit');
+
+        fixture.nativeElement.querySelector('.skip').click();
         tick();
 
         expect(component.next.emit).toHaveBeenCalled();

@@ -1,9 +1,10 @@
-<div>
-    {{ card.question }}
-</div>
+<div class="question">{{ card.question }}</div>
+
+<textarea [(ngModel)]="answer" class="answer" title="Answer" placeholder="Answer"></textarea>
+
+<button (click)="check()" class="check">View Answer</button>
+<button (click)="skip()" class="skip">Skip</button>
 
 <div class="result">{{ result }}</div>
 
-<textarea [(ngModel)]="answer" title="Answer"></textarea>
-
-<button (click)="check()">Check!</button>
+<div class="solution" [hidden]="!showAnswer">{{ card.solution }}</div>

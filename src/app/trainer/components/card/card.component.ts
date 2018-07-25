@@ -13,13 +13,20 @@ export class CardComponent {
 
     answer = '';
     result = '';
+    showAnswer = false;
 
     public check() {
-        console.log(this.answer);
+        this.showAnswer = true;
+
         if (this.card.check(this.answer)) {
+            this.result = 'Correct!';
             this.next.emit();
         } else {
-            this.result = 'Wrong answer!';
+            this.result = 'Wrong solution!';
         }
+    }
+
+    public skip() {
+        this.next.emit();
     }
 }
