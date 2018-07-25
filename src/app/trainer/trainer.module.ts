@@ -6,6 +6,7 @@ import {BaseModule} from '../base/base.module';
 import {TrainerComponent} from './components/trainer/trainer.component';
 import {TrainerRoutingModule} from './trainer-routing.module';
 import {FormsModule} from '@angular/forms';
+import {AutosizeModule} from 'ngx-autosize';
 
 @NgModule({
     declarations: [
@@ -14,6 +15,7 @@ import {FormsModule} from '@angular/forms';
     ],
     imports: [
         FormsModule,
+        AutosizeModule,
         BrowserModule,
         BrowserAnimationsModule,
         TrainerRoutingModule,

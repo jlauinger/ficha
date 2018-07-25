@@ -1,12 +1,14 @@
 <div id="question">{{ _card.question }}</div>
 
-<textarea [(ngModel)]="answer" id="answer" title="Answer" placeholder="Answer"></textarea>
+<textarea [(ngModel)]="answer" autosize [minRows]="1" [maxRows]="5"
+          [ngClass]="{ 'right': shouldDisplayRight(), 'wrong': shouldDisplayWrong() }"
+          id="answer" title="Answer" placeholder="Answer"></textarea>
 
-<button (click)="check()" [hidden]="showAnswer" id="check">View Answer</button>
-<button (click)="markCorrect()" [hidden]="!showAnswer" id="markcorrect">This was correct!</button>
-<button (click)="markWrong()" [hidden]="!showAnswer" id="markwrong">Ok, wrong. Next!</button>
-<button (click)="skip()" id="skip">Skip</button>
-
-<div id="result">{{ result }}</div>
+<div id="buttons">
+    <button (click)="check()" [hidden]="showAnswer" id="check">View Answer</button>
+    <button (click)="markCorrect()" [hidden]="!showAnswer" id="markcorrect">This was correct!</button>
+    <button (click)="markWrong()" [hidden]="!showAnswer" id="markwrong">Ok, wrong. Next!</button>
+    <button (click)="skip()" id="skip">Skip</button>
+</div>
 
 <div id="solution" [hidden]="!showAnswer">{{ _card.solution }}</div>

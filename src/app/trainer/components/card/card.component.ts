@@ -18,17 +18,15 @@ export class CardComponent {
 
     _card: Card;
     answer = '';
-    result = '';
     showAnswer = false;
+    answerIsCorrect = false;
 
     public check() {
         this.showAnswer = true;
+        this.answerIsCorrect = this._card.check(this.answer);
 
-        if (this._card.check(this.answer)) {
-            this.result = 'Correct!';
+        if (this.answerIsCorrect) {
             this.next.emit();
-        } else {
-            this.result = 'Wrong solution!';
         }
     }
 
@@ -44,9 +42,17 @@ export class CardComponent {
         this.next.emit();
     }
 
+    public shouldDisplayRight() {
+        return this.showAnswer && this.answerIsCorrect;
+    }
+
+    public shouldDisplayWrong() {
+        return this.showAnswer && !this.answerIsCorrect;
+    }
+
     private reset() {
         this.answer = '';
         this.showAnswer = false;
-        this.result = '';
+        this.answerIsCorrect = false;
     }
 }

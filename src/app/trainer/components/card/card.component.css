@@ -1,0 +1,56 @@
+#question, #solution {
+    width: 80%;
+    min-height: 3rem;
+    background-color: #cacaca;
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-family: 'Courier New', monospace, sans-serif;
+}
+#solution {
+    margin-top: .5rem;
+}
+
+#answer {
+    width: 80%;
+    background-color: #333;
+    color: #eee;
+    border: none;
+    resize: none;
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-family: 'Courier New', monospace, sans-serif;
+}
+#answer:focus {
+    outline: none;
+}
+#answer.right {
+    background-color: #61c361;
+    color: #333;
+}
+#answer.wrong {
+    background-color: #e89393;
+    color: #333;
+}
+
+#buttons {
+    padding-top: .4rem;
+}
+button {
+    height: 2.5rem;
+    border: none;
+    margin-right: .4rem;
+    padding: 0 1rem;
+    cursor: pointer;
+    color: #444;
+}
+button:hover {
+    color: #000;
+}
+
+#check, #markcorrect {
+    background-color: #61c361;
+}
+#markwrong {
+    background-color: #e89393;
+}
+

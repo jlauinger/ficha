@@ -2,6 +2,7 @@ import {TestBed, async, ComponentFixture, fakeAsync, tick} from '@angular/core/t
 import {CardComponent} from './card.component';
 import {Card} from '../../../base/models/card/card.model';
 import {FormsModule} from '@angular/forms';
+import {AutosizeModule} from 'ngx-autosize';
 
 
 describe('CardComponent', () => {
@@ -15,7 +16,8 @@ describe('CardComponent', () => {
                 CardComponent
             ],
             imports: [
-                FormsModule
+                FormsModule,
+                AutosizeModule
             ]
         }).compileComponents();
     }));
@@ -44,7 +46,7 @@ describe('CardComponent', () => {
         expect(fixture.nativeElement.querySelector('button#check').innerText).toBe('View Answer');
     });
 
-    it('should show a message when clicking check with a wrong solution', fakeAsync(() => {
+    it('should turn red when clicking check with a wrong solution', fakeAsync(() => {
         fixture.detectChanges();
         const element = fixture.nativeElement.querySelector('#answer');
         element.value = 'wrong solution';
@@ -55,10 +57,10 @@ describe('CardComponent', () => {
         tick();
         fixture.detectChanges();
 
-        expect(fixture.nativeElement.querySelector('#result').innerText).toContain('Wrong solution!');
+        expect(fixture.nativeElement.querySelector('#answer').className).toContain('wrong');
     }));
 
-    it('should emit an event when clicking check with the correct solution', fakeAsync(() => {
+    it('should turn green and emit an event when clicking check with the correct solution', fakeAsync(() => {
         fixture.detectChanges();
         const element = fixture.nativeElement.querySelector('#answer');
         element.value = 'correct solution';
@@ -68,8 +70,10 @@ describe('CardComponent', () => {
 
         fixture.nativeElement.querySelector('#check').click();
         tick();
+        fixture.detectChanges();
 
         expect(component.next.emit).toHaveBeenCalled();
+        expect(fixture.nativeElement.querySelector('#answer').className).toContain('right');
     }));
 
     it('should show the solution after clicking check', () => {
@@ -100,13 +104,14 @@ describe('CardComponent', () => {
 
     it('should reset to question state when the card changes', () => {
         component.showAnswer = true;
+        component.answerIsCorrect = true;
         component.answer = '42';
 
         component.card = new Card('ser', 'to be (trait)');
 
         expect(component.showAnswer).toBe(false);
+        expect(component.answerIsCorrect).toBe(false);
         expect(component.answer).toBe('');
-        expect(component.result).toBe('');
     });
 
     it('should show two buttons mark correct and wrong after clicking check', () => {
