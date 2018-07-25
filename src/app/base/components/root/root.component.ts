@@ -8,4 +8,6 @@ import { Component } from '@angular/core';
 export class RootComponent {
 
     title = 'Ficha: Learn anything with cards!';
+
+    date = new Date();
 }

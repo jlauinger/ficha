@@ -13,6 +13,7 @@ button:hover {
 #delete {
     background-color: #e89393;
     margin-left: 1rem;
+    float: right;
 }
 
 input {
