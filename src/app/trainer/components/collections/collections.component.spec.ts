@@ -42,6 +42,13 @@ describe('CollectionsComponent', () => {
             (node) => node.nativeElement.innerText))
             .toEqual(['Spanish', 'German']);
     });
+
+    it('should display a link to train, and one to manage, each collection', () => {
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('a.train').innerText).toBe('Train');
+        expect(fixture.nativeElement.querySelector('a.manage').innerText).toBe('Manage');
+    });
 });
 
 

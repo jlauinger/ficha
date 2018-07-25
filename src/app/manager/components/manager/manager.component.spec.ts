@@ -4,12 +4,14 @@ import {CollectionsService} from '../../../base/services/collections/collections
 import {Collection} from '../../../base/models/collection/collection.model';
 import {Injectable} from '@angular/core';
 import {Card} from '../../../base/models/card/card.model';
+import {ActivatedRoute} from '@angular/router';
 
 
 describe('ManagerComponent', () => {
 
     let fixture: ComponentFixture<ManagerComponent>;
     let component: ManagerComponent;
+    let collectionId = '0';
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -17,7 +19,10 @@ describe('ManagerComponent', () => {
                 ManagerComponent
             ],
             providers: [
-                {provide: CollectionsService, useClass: CollectionsStubService}
+                { provide: CollectionsService, useClass: CollectionsStubService },
+                { provide: ActivatedRoute, useValue: { snapshot: { paramMap: {
+                                get: function() { return collectionId; }
+                            }}}}
             ],
         }).compileComponents();
     }));
@@ -30,6 +35,22 @@ describe('ManagerComponent', () => {
     it('should create', async(() => {
         expect(component).toBeTruthy();
     }));
+
+    it('should request the correct collection from CollectionService', () => {
+        const collectionService: CollectionsService = TestBed.get(CollectionsService);
+        spyOn(collectionService, 'getCollection').and.callThrough();
+        collectionId = '42';
+
+        fixture.detectChanges();
+
+        expect(collectionService.getCollection).toHaveBeenCalledWith(42);
+    });
+
+    it('should display the collection name', () => {
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('#name').innerText).toBe('SPANISH');
+    });
 });
 
 

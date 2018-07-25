@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Collection} from '../../../base/models/collection/collection.model';
+import {CollectionsService} from '../../../base/services/collections/collections.service';
 
 @Component({
     selector: 'app-manager',
@@ -7,8 +10,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ManagerComponent implements OnInit {
 
-    constructor() {}
+    collection: Collection;
 
-    ngOnInit(): void {
+    constructor(private route: ActivatedRoute,
+                private collectionsService: CollectionsService) {}
+
+    ngOnInit() {
+        const collectionId = Number(this.route.snapshot.paramMap.get('id'));
+        this.collection = this.collectionsService.getCollection(collectionId);
     }
 }
