@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Card} from '../../../base/models/card/card.model';
 import {Collection} from '../../../base/models/collection/collection.model';
+import {qR} from '@angular/core/src/render3';
 
 @Component({
     selector: 'app-trainer',
@@ -17,6 +18,10 @@ export class TrainerComponent implements OnInit {
         this.collection.add(new Card('ser', 'to be (trait)'));
         this.collection.add(new Card('ser', 'to be (state, position)'));
 
+        this.next();
+    }
+
+    next() {
         this.card = this.collection.nextCard();
     }
 }
