@@ -80,3 +80,18 @@ button:focus {
     background-color: #cacaca;
     margin-top: 1rem;
 }
+
+#newName {
+    display: inline-block;
+    border: none;
+    border-bottom: 1px solid #cacaca;
+    background-color: #eee;
+    padding: .4rem 0;
+    font-size: 1.2rem;
+    color: #444;
+    width: 100%;
+    margin-bottom: .85rem;
+}
+#newName:focus {
+    outline: none;
+}

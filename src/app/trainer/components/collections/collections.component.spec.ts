@@ -91,6 +91,15 @@ describe('CollectionsComponent', () => {
         expect(collectionService.createCollection).toHaveBeenCalledWith('NEW NAME');
         expect(component.collections.length).toBe(3);
     }));
+
+    it('should reset new name input after creating the new collection', () => {
+        component.newName = 'new name';
+        fixture.detectChanges();
+
+        fixture.nativeElement.querySelector('#new').click();
+
+        expect(component.newName).toBe('');
+    });
 });
 
 

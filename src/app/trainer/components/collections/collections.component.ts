@@ -21,5 +21,6 @@ export class CollectionsComponent implements OnInit {
     public new() {
         const newCollection = this.collectionsService.createCollection(this.newName);
         this.collections.push(newCollection);
+        this.newName = '';
     }
 }
