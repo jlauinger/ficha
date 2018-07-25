@@ -20,6 +20,7 @@ export class CardComponent {
     answer = '';
     showAnswer = false;
     answerIsCorrect = false;
+    autoSubmit = true;
 
     public check() {
         this.showAnswer = true;

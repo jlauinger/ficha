@@ -2,6 +2,7 @@
 
 <textarea [(ngModel)]="answer" autosize [minRows]="1" [maxRows]="5"
           [ngClass]="{ 'right': shouldDisplayRight(), 'wrong': shouldDisplayWrong() }"
+          (keyup.enter)="autoSubmit && check()"
           id="answer" title="Answer" placeholder="Answer"></textarea>
 
 <div id="buttons">
@@ -9,6 +10,12 @@
     <button (click)="markCorrect()" [hidden]="!showAnswer" id="markcorrect">This was correct!</button>
     <button (click)="markWrong()" [hidden]="!showAnswer" id="markwrong">Ok, wrong. Next!</button>
     <button (click)="skip()" id="skip">Skip</button>
+
+    <label class="form-control">
+        <input type="checkbox" [(ngModel)]="autoSubmit" id="autosubmit" />
+        Check answer when pressing <span class="keycode">Return</span>
+        <span class="checkmark"></span>
+    </label>
 </div>
 
 <div id="solution" [hidden]="!showAnswer">{{ _card.solution }}</div>

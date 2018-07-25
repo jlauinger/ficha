@@ -9,6 +9,6 @@ export class Card {
     constructor(public question: string, public solution: string) {}
 
     public check(answer: string) {
-        return answer === this.solution;
+        return answer.trim() === this.solution.trim();
     }
 }

@@ -148,4 +148,34 @@ describe('CardComponent', () => {
 
         expect(component.next.emit).toHaveBeenCalled();
     }));
+
+    it('should display a checkbox to toggle using return to submit', () => {
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('input[type=checkbox]#autosubmit')).toBeTruthy();
+    });
+
+    it('should check the answer when autosubmit is on and return is pressed', fakeAsync(() => {
+        component.autoSubmit = true;
+        const element = fixture.nativeElement.querySelector('#answer');
+
+        element.dispatchEvent(new KeyboardEvent('keyup', {
+            'key': 'enter'
+        }));
+        tick();
+
+        expect(component.showAnswer).toBe(true);
+    }));
+
+    it('should not check the answer when autosubmit is off and return is pressed', fakeAsync(() => {
+        component.autoSubmit = false;
+        const element = fixture.nativeElement.querySelector('#answer');
+
+        element.dispatchEvent(new KeyboardEvent('keyup', {
+            'key': 'enter'
+        }));
+        tick();
+
+        expect(component.showAnswer).toBe(false);
+    }));
 });
