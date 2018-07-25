@@ -1,0 +1,36 @@
+button {
+    height: 2.5rem;
+    border: none;
+    padding: 0 1rem;
+    cursor: pointer;
+    background-color: #cacaca;
+    color: #444;
+}
+button:hover {
+    color: #000;
+}
+
+#delete {
+    background-color: #e89393;
+    margin-left: 1rem;
+}
+
+input {
+    border: none;
+    height: 2.5rem;
+    padding: .4rem .8rem;
+    font-family: monospace;
+    font-size: 1.2rem;
+    width: 450px;
+}
+input:focus {
+    outline: none;
+}
+
+#question {
+    background-color: #cacaca;
+}
+#solution {
+    background-color: #333;
+    color: #eee;
+}

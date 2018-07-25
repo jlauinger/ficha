@@ -1,5 +1,6 @@
 app-edit {
     display: block;
+    margin-bottom: .5rem;
 }
 
 #exit {
@@ -10,7 +11,7 @@ app-edit {
     cursor: pointer;
     color: #444;
     text-decoration: none;
-    background-color: #e89393;
+    background-color: #cacaca;
 }
 #exit:hover {
     color: #000;
