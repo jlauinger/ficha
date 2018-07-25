@@ -6,6 +6,7 @@ import {Collection} from '../../../base/models/collection/collection.model';
 import {By} from '@angular/platform-browser';
 import {CollectionsService} from '../../../base/services/collections/collections.service';
 import {ActivatedRoute} from '@angular/router';
+import {RouterTestingModule} from '@angular/router/testing';
 
 
 describe('TrainerComponent', () => {
@@ -25,6 +26,9 @@ describe('TrainerComponent', () => {
                 { provide: ActivatedRoute, useValue: { snapshot: { paramMap: {
                                 get: function() { return collectionId; }
                             }}}}
+            ],
+            imports: [
+                RouterTestingModule
             ]
         }).compileComponents();
     }));
@@ -90,6 +94,12 @@ describe('TrainerComponent', () => {
         fixture.detectChanges();
 
         expect(collection.reset).toHaveBeenCalled();
+    });
+
+    it('should have an exit button', () => {
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('#exit').innerText).toEqual('Quit Learning');
     });
 });
 
