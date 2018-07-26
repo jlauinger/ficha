@@ -8,6 +8,7 @@ import {ManagerRoutingModule} from './manager-routing.module';
 import {ManagerComponent} from './components/manager/manager.component';
 import {EditComponent} from './components/edit/edit.component';
 import {PapaParseModule} from 'ngx-papaparse';
+import {InjectableFileReader} from '../base/helpers/injectable-file-reader/injectable-file-reader.service';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,7 @@ import {PapaParseModule} from 'ngx-papaparse';
         BaseModule // has to come last due to catch-all route
     ],
     providers: [
-        FileReader
+        InjectableFileReader
     ]
 })
 export class ManagerModule { }

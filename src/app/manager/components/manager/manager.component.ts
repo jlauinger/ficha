@@ -5,6 +5,7 @@ import {CollectionsService} from '../../../base/services/collections/collections
 import {Card} from '../../../base/models/card/card.model';
 import {PapaParseService} from 'ngx-papaparse';
 import * as FileSaver from 'file-saver';
+import {InjectableFileReader} from '../../../base/helpers/injectable-file-reader/injectable-file-reader.service';
 
 @Component({
     selector: 'app-manager',
@@ -23,7 +24,7 @@ export class ManagerComponent implements OnInit, OnDestroy {
 
     constructor(private route: ActivatedRoute,
                 public router: Router,
-                public reader: FileReader,
+                public reader: InjectableFileReader,
                 private papa: PapaParseService,
                 private collectionsService: CollectionsService) {}
 

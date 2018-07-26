@@ -11,6 +11,7 @@ import {FormsModule} from '@angular/forms';
 import {PapaParseModule} from 'ngx-papaparse';
 import * as FileSaver from 'file-saver';
 import Spy = jasmine.Spy;
+import {InjectableFileReader} from '../../../base/helpers/injectable-file-reader/injectable-file-reader.service';
 
 
 describe('ManagerComponent', () => {
@@ -30,7 +31,7 @@ describe('ManagerComponent', () => {
                 { provide: ActivatedRoute, useValue: { snapshot: { paramMap: {
                                 get: function() { return collectionId; }
                             }}}},
-                { provide: FileReader, useClass: FileReaderStub }
+                { provide: InjectableFileReader, useClass: FileReaderStub }
             ],
             imports: [
                 RouterTestingModule,
@@ -192,7 +193,7 @@ describe('ManagerComponent', () => {
 
     it('should import items from CSV when pressing the button', fakeAsync(() => {
         component.importFile = new File([], '');
-        const reader: FileReaderStub = TestBed.get(FileReader);
+        const reader: FileReaderStub = TestBed.get(InjectableFileReader);
         spyOn(reader, 'readAsText').and.callFake(() => reader.onload());
         reader.result = 'q1,s1\nq2,s2';
         fixture.detectChanges();
@@ -207,7 +208,7 @@ describe('ManagerComponent', () => {
 
     it('should not import an empty card when CSV ends in newline', fakeAsync(() => {
         component.importFile = new File([], '');
-        const reader: FileReaderStub = TestBed.get(FileReader);
+        const reader: FileReaderStub = TestBed.get(InjectableFileReader);
         spyOn(reader, 'readAsText').and.callFake(() => reader.onload());
         reader.result = 'q1,s1\n';
         fixture.detectChanges();
@@ -220,7 +221,7 @@ describe('ManagerComponent', () => {
 
     it('should import from CSV before the skeleton card so no gap is produced', fakeAsync(() => {
         component.importFile = new File([], '');
-        const reader: FileReaderStub = TestBed.get(FileReader);
+        const reader: FileReaderStub = TestBed.get(InjectableFileReader);
         spyOn(reader, 'readAsText').and.callFake(() => reader.onload());
         reader.result = 'q1,s1';
         fixture.detectChanges();
