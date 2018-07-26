@@ -29,7 +29,7 @@ describe('CollectionsService', () => {
         spanishCollection = new Collection('1', 'Spanish');
         germanCollection = new Collection('2', 'German');
 
-        service.collections = [spanishCollection, germanCollection];
+        service.localCollections = [spanishCollection, germanCollection];
     });
 
     it('should return a list of collections', () => {
@@ -47,13 +47,13 @@ describe('CollectionsService', () => {
     it('should delete the correct collection', () => {
         service.deleteCollection('1');
 
-        expect(service.collections).toEqual([germanCollection]);
+        expect(service.localCollections).toEqual([germanCollection]);
     });
 
     it('should return a new collection with specified name and a unique ID', () => {
         const newCollection = service.createCollection('English');
 
-        expect(service.collections).toContain(newCollection);
+        expect(service.localCollections).toContain(newCollection);
         expect(newCollection.name).toBe('English');
         expect(newCollection.size()).toBe(0);
         expect(newCollection.id).not.toBe('1');
@@ -78,7 +78,7 @@ describe('CollectionsService', () => {
 
         service.deserialize(serialized);
 
-        expect(service.collections).toEqual([germanCollection]);
+        expect(service.localCollections).toEqual([germanCollection]);
     });
 
     it('should load data from local storage when created', () => {
@@ -91,7 +91,7 @@ describe('CollectionsService', () => {
         const loadingService = new CollectionsService(localStorageService, backendService);
 
         expect(localStorageService.getObject).toHaveBeenCalledWith('collections');
-        expect(loadingService.collections).toEqual([new Collection('2', 'German')]);
+        expect(loadingService.localCollections).toEqual([new Collection('2', 'German')]);
     });
 
     it('should persist data to local storage', () => {
@@ -134,7 +134,7 @@ describe('CollectionsService', () => {
         const loadingService = new CollectionsService(localStorageService, backendService);
 
         expect(backendService.getCollections).toHaveBeenCalled();
-        expect(loadingService.collections).toEqual([new Collection('2', 'German')]);
+        expect(loadingService.localCollections).toEqual([new Collection('2', 'German')]);
     });
 });
 

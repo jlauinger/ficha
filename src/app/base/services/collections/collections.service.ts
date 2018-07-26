@@ -7,7 +7,7 @@ import {BackendService} from '../backend/backend.service';
 @Injectable()
 export class CollectionsService {
 
-    collections: Collection[] = [];
+    localCollections: Collection[] = [];
 
     readonly localStorageKey = 'collections';
 
@@ -18,30 +18,30 @@ export class CollectionsService {
     }
 
     public serialize(): SerializedCollections {
-        return { collections: this.collections.map(c => c.serialize()) };
+        return { collections: this.localCollections.map(c => c.serialize()) };
     }
 
     public deserialize(serialized: SerializedCollections) {
-        this.collections = serialized.collections.map(c => Collection.deserialize(c));
+        this.localCollections = serialized.collections.map(c => Collection.deserialize(c));
     }
 
     public getCollections(): Collection[] {
-        return this.collections.slice();
+        return this.localCollections.slice();
     }
 
     public getCollection(id: string): Collection {
-        return this.collections.find((collection: Collection) => collection.id === id);
+        return this.localCollections.find((collection: Collection) => collection.id === id);
     }
 
     public deleteCollection(id: string) {
-        const index = this.collections.findIndex((collection: Collection) => collection.id === id);
-        this.collections.splice(index, 1);
+        const index = this.localCollections.findIndex((collection: Collection) => collection.id === id);
+        this.localCollections.splice(index, 1);
         this.persist();
     }
 
     public createCollection(name: string = ''): Collection {
         const newCollection = new Collection(this.nextId(), name);
-        this.collections.push(newCollection);
+        this.localCollections.push(newCollection);
         this.persist();
         return newCollection;
     }
