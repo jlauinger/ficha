@@ -8,6 +8,13 @@ pressing the `Return` key.
 The project's name is based on the Spanish translation for index cards.
 
 
+## Deployment
+
+ - Run `ng build --aot --prod --base-href="/"` to compile the app.
+ - Point a web server to the `dist/ficha` directory
+ - Make a JSON file available at `api/collections.json` to have pre-filled data
+
+
 ## Development
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
