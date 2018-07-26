@@ -79,27 +79,17 @@ describe('ManagerComponent', () => {
         expect(component.collection.name).toBe('new name');
     }));
 
-    it('should have an exit and save button', () => {
+    it('should have an exit button', () => {
         fixture.detectChanges();
 
-        expect(fixture.nativeElement.querySelector('#save').innerText).toEqual('Save And Back');
+        expect(fixture.nativeElement.querySelector('#exit').innerText).toEqual('Save And Back');
     });
 
-    it('should persist data through the collections service when pressing the save button', () => {
-        const collectionService: CollectionsService = TestBed.get(CollectionsService);
-        spyOn(collectionService, 'persist');
-        fixture.detectChanges();
-
-        fixture.nativeElement.querySelector('#save').click();
-
-        expect(collectionService.persist).toHaveBeenCalled();
-    });
-
-    it('should navigate back home when pressing the save button', () => {
+    it('should navigate back home when pressing the exit button', () => {
         spyOn(component.router, 'navigate');
         fixture.detectChanges();
 
-        fixture.nativeElement.querySelector('#save').click();
+        fixture.nativeElement.querySelector('#exit').click();
 
         expect(component.router.navigate).toHaveBeenCalledWith(['/']);
     });
@@ -181,6 +171,16 @@ describe('ManagerComponent', () => {
         component.ngOnDestroy();
 
         expect(component.collection.size()).toBe(2);
+    });
+
+    it('should persist data through the collections service when exiting', () => {
+        const collectionService: CollectionsService = TestBed.get(CollectionsService);
+        spyOn(collectionService, 'persist');
+        fixture.detectChanges();
+
+        component.ngOnDestroy();
+
+        expect(collectionService.persist).toHaveBeenCalled();
     });
 
     it('should display a CSV import file field and button', () => {

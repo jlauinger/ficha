@@ -37,6 +37,7 @@ export class ManagerComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.collection.remove(this.skeletonCard);
+        this.collectionsService.persist();
     }
 
     public addEmptyCard() {
@@ -53,8 +54,7 @@ export class ManagerComponent implements OnInit, OnDestroy {
         this.navigateHome();
     }
 
-    public save() {
-        this.collectionsService.persist();
+    public exit() {
         this.router.navigate(['/']);
     }
 

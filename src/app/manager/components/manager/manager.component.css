@@ -38,6 +38,9 @@ button:hover {
 #delete {
     background-color: #e89393;
 }
+#exit {
+    background-color: #61c361;
+}
 
 #name {
     display: inline-block;
