@@ -56,6 +56,30 @@ button:hover {
     margin-top: 2rem;
 }
 
-#fileInput.error {
-    border: 1px solid #e89393;
+
+#fileInput {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+#fileInput + label {
+    background-color: #cacaca;
+    display: inline-block;
+    cursor: pointer;
+    min-width: 200px;
+    max-width: 300px;
+    margin: 0 1rem;
+    padding: .6rem 1rem .7rem 1rem;
+}
+
+#fileInput:focus + label,
+#fileInput + label:hover {
+    background-color: #2196F3;
+}
+
+#fileInput.error + label {
+    background-color: #e89393;
 }

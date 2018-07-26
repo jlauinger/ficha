@@ -14,6 +14,7 @@
     Import a CSV file:
     <input type="file" #fileInput (change)="fileChanged($event)" id="fileInput"
            [ngClass]="{ 'error': showFileInputError }" title="CSV file" />
+    <label for="fileInput">{{ getFileInputLabelText() }}</label>
     <button id="import" (click)="import()">Import</button>
 </div>
 

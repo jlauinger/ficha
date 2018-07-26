@@ -57,6 +57,12 @@ export class ManagerComponent implements OnInit, OnDestroy {
         this.showFileInputError = false;
     }
 
+    public getFileInputLabelText() {
+        return this.fileInput.nativeElement.files.length > 0
+            ? this.fileInput.nativeElement.files[0].name
+            : 'Choose a file...';
+    }
+
     public import() {
         if (!this.importFile) {
             this.showFileInputError = true;
