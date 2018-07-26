@@ -76,8 +76,8 @@ export class ManagerComponent implements OnInit, OnDestroy {
     }
 
     public export() {
-        const csv = 'a,b\n';
-        const file = new File(csv.split('\n'), this.collection.name + '.csv',
+        const csv = this.exportCsv();
+        const file = new File([csv], this.collection.name + '.csv',
             { type: 'text/csv;charset=utf-8' });
         FileSaver.saveAs(file);
     }
@@ -98,5 +98,16 @@ export class ManagerComponent implements OnInit, OnDestroy {
         });
         // re-add the skeleton input card
         this.addEmptyCard();
+    }
+
+    private exportCsv(): string {
+        this.collection.remove(this.skeletonCard);
+        const data = this.collection.cards.map((card: Card) => {
+            return [card.question, card.solution];
+        });
+        // re-add the skeleton input card
+        this.addEmptyCard();
+
+        return this.papa.unparse(data, { newline: '\n' });
     }
 }

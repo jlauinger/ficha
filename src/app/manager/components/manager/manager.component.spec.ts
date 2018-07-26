@@ -9,9 +9,8 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {PapaParseModule} from 'ngx-papaparse';
-import {FileChangeEvent} from '@angular/compiler-cli/src/perform_watch';
-import {runFilenameOrFn_} from 'protractor/built/util';
 import * as FileSaver from 'file-saver';
+import Spy = jasmine.Spy;
 
 
 describe('ManagerComponent', () => {
@@ -230,15 +229,21 @@ describe('ManagerComponent', () => {
         expect(fixture.nativeElement.querySelector('button#export').innerText).toBe('Export');
     });
 
-    fit('should download a CSV file with the collection when pressing the button', fakeAsync(() => {
+    it('should download a CSV file with the collection when pressing the button', async(() => {
         spyOn(FileSaver, 'saveAs');
-        const file = new File(['ser,to be (trait)', 'estar,to be (state, location)'],
-            'SPANISH.csv', { type: 'text/csv;charset=utf-8' });
+        const reader = new FileReader();
         fixture.detectChanges();
 
         fixture.nativeElement.querySelector('#export').click();
 
-        expect(FileSaver.saveAs).toHaveBeenCalledWith(file);
+        expect(FileSaver.saveAs).toHaveBeenCalled();
+        const file = (<Spy>(FileSaver.saveAs)).calls.mostRecent().args[0];
+        expect(file.name).toBe('SPANISH.csv');
+        expect(file.type).toBe('text/csv;charset=utf-8');
+        reader.onload = () => {
+            expect(reader.result).toBe('ser,to be (trait)\nestar,"to be (state, location)"');
+        };
+        reader.readAsText(file);
     }));
 });
 
