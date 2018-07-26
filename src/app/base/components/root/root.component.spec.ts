@@ -42,6 +42,11 @@ describe('RootComponent', () => {
 
     it('should render title in a h1 tag', async(() => {
         fixture.detectChanges();
+
         expect(element.querySelector('h1').textContent).toContain(component.title);
     }));
+
+    it('should display a link to the Github repository', () => {
+        expect(element.querySelector('footer a').href).toBe('https://github.com/jlauinger/ficha');
+    });
 });
