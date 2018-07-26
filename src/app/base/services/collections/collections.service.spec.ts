@@ -4,7 +4,7 @@ import {SerializedCollections} from './collections.interface';
 import {BackendService} from '../backend/backend.service';
 import {TestBed} from '@angular/core/testing';
 import {LocalStorageService} from '../local-storage/local-storage.service';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 
 describe('CollectionsService', () => {
 
@@ -128,13 +128,13 @@ describe('CollectionsService', () => {
     it('should load data from server backend when created', () => {
         const localStorageService = TestBed.get(LocalStorageService);
         const backendService = TestBed.get(BackendService);
-        spyOn(backendService, 'getCollections').and.returnValue([
-            { id: 2, name: 'German', currentCardIndex: -1, cards: [] }
-        ]);
+        spyOn(backendService, 'getCollections').and.returnValue(of([
+            new Collection('2', 'German')
+        ]));
         const loadingService = new CollectionsService(localStorageService, backendService);
 
         expect(backendService.getCollections).toHaveBeenCalled();
-        expect(loadingService.localCollections).toEqual([new Collection('2', 'German')]);
+        expect(loadingService.remoteCollections).toEqual([new Collection('2', 'German')]);
     });
 });
 
@@ -145,5 +145,5 @@ class LocalStorageServiceMock {
 }
 
 class BackendServiceMock {
-    public getCollections(): Observable<Collection[]> { return null; }
+    public getCollections(): Observable<Collection[]> { return of([]); }
 }

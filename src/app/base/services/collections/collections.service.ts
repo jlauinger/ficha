@@ -8,6 +8,7 @@ import {BackendService} from '../backend/backend.service';
 export class CollectionsService {
 
     localCollections: Collection[] = [];
+    remoteCollections: Collection[] = [];
 
     readonly localStorageKey = 'collections';
 
@@ -15,6 +16,7 @@ export class CollectionsService {
                 private backendService: BackendService) {
 
         this.resumeFromLocalStorage();
+        this.loadRemoteCollections();
     }
 
     public serialize(): SerializedCollections {
@@ -64,5 +66,11 @@ export class CollectionsService {
         if (persistedData) {
             this.deserialize(persistedData);
         }
+    }
+
+    private loadRemoteCollections() {
+        this.backendService.getCollections().subscribe((collections) => {
+            this.remoteCollections = collections;
+        });
     }
 }
