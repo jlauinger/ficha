@@ -1,33 +1,32 @@
 import {Injectable} from '@angular/core';
 import {Collection} from '../../models/collection/collection.model';
-import {Card} from '../../models/card/card.model';
 
 @Injectable()
 export class CollectionsService {
 
-    private spanishCollection = new Collection(1, 'Spanish');
-    private germanCollection = new Collection(2, 'German');
+    collections: Collection[] = [];
 
-    constructor() {
-        this.spanishCollection.add(new Card('ser', 'to be (trait)'));
-        this.spanishCollection.add(new Card('estar', 'to be (state, location)'));
-        this.spanishCollection.add(new Card('la canción', 'the song'));
-
-        this.germanCollection.add(new Card('gehen', 'to walk'));
-        this.germanCollection.add(new Card('rennen', 'to run'));
+    public getCollections(): Collection[] {
+        return this.collections.slice();
     }
 
     public getCollection(id: number): Collection {
-        return this.spanishCollection;
+        return this.collections.find((collection: Collection) => collection.id === id);
     }
 
-    public getCollections(): Collection[] {
-        return [this.spanishCollection, this.germanCollection];
+    public deleteCollection(id: number) {
+        const index = this.collections.findIndex((collection: Collection) => collection.id === id);
+        this.collections.splice(index, 1);
     }
-
-    public deleteCollection(id: number) {}
 
     public createCollection(name: string = ''): Collection {
-        return new Collection(1, name);
+        const newCollection = new Collection(this.nextId(), name);
+        this.collections.push(newCollection);
+        return newCollection;
+    }
+
+    private nextId(): number {
+        const ids = this.collections.map(collection => collection.id);
+        return Math.max(0, ...ids) + 1;
     }
 }
