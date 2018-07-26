@@ -79,4 +79,30 @@ describe('Collection', () => {
 
         expect(collection.cards).toEqual([serCard]);
     });
+
+    it('should serialize', () => {
+        expect(collection.serialize()).toEqual({
+            id: 1,
+            name: '',
+            currentCardIndex: -1,
+            cards: [
+                { question: 'ser', solution: 'to be (trait)' },
+                { question: 'estar', solution: 'to be (state, location)' }
+            ]
+        });
+    });
+
+    it('should deserialize', () => {
+        const serialized = {
+            id: 1,
+            name: '',
+            currentCardIndex: -1,
+            cards: [
+                { question: 'ser', solution: 'to be (trait)' },
+                { question: 'estar', solution: 'to be (state, location)' }
+            ]
+        };
+
+        expect(Collection.deserialize(serialized)).toEqual(collection);
+    });
 });

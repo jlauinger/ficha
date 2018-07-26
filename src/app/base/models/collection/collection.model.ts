@@ -1,4 +1,6 @@
 import {Card} from '../card/card.model';
+import {SerializedCollection} from './collection.interface';
+import {SerializedCard} from '../card/card.interface';
 
 /*
  * A collection represents a set of cards that belong together. Collections can combine cards of similar topic. Collections can be:
@@ -14,6 +16,28 @@ export class Collection {
     constructor(public id: number, public name: string = '') {
         this.cards = [];
         this.currentCardIndex = -1;
+    }
+
+    public static deserialize(serialized: SerializedCollection): Collection {
+        const collection = new Collection(serialized.id, serialized.name);
+        collection.currentCardIndex = serialized.currentCardIndex;
+        serialized.cards.forEach((card: SerializedCard) => {
+            collection.cards.push(Card.deserialize(card));
+        });
+        return collection;
+    }
+
+    public serialize(): SerializedCollection {
+        const serialized: SerializedCollection = {
+            id: this.id,
+            name: this.name,
+            currentCardIndex: this.currentCardIndex,
+            cards: []
+        };
+        this.cards.forEach((card: Card) => {
+            serialized.cards.push(card.serialize());
+        });
+        return serialized;
     }
 
     public size(): number {
