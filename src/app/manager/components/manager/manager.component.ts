@@ -16,11 +16,13 @@ export class ManagerComponent implements OnInit, OnDestroy {
 
     @ViewChild('fileInput') fileInput: ElementRef;
     importFile: File;
+    showFileInputError = false;
 
     skeletonCard: Card;
 
     constructor(private route: ActivatedRoute,
                 public router: Router,
+                public reader: FileReader,
                 private papa: PapaParseService,
                 private collectionsService: CollectionsService) {}
 
@@ -52,12 +54,17 @@ export class ManagerComponent implements OnInit, OnDestroy {
 
     public fileChanged(event) {
         this.importFile = event.target.files[0];
+        this.showFileInputError = false;
     }
 
     public import() {
-        const fileReader = new FileReader();
-        fileReader.onload = () => this.parseCsv(fileReader.result);
-        fileReader.readAsText(this.importFile);
+        if (!this.importFile) {
+            this.showFileInputError = true;
+            return;
+        }
+
+        this.reader.onload = () => this.parseCsv(this.reader.result);
+        this.reader.readAsText(this.importFile);
         this.fileInput.nativeElement.value = '';
     }
 
@@ -68,8 +75,14 @@ export class ManagerComponent implements OnInit, OnDestroy {
     }
 
     private importCsvItems(items) {
+        this.collection.remove(this.skeletonCard);
         items.forEach((item) => {
+            if (item[0].length === 0 || typeof item[1] === 'undefined' || item[1].length === 0) {
+                return;
+            }
             this.collection.add(new Card(item[0], item[1]));
         });
+        // re-add the skeleton input card
+        this.addEmptyCard();
     }
 }

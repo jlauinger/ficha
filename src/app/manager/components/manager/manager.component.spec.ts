@@ -9,7 +9,8 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {PapaParseModule} from 'ngx-papaparse';
-import {EditComponent} from '../edit/edit.component';
+import {FileChangeEvent} from '@angular/compiler-cli/src/perform_watch';
+import {runFilenameOrFn_} from 'protractor/built/util';
 
 
 describe('ManagerComponent', () => {
@@ -28,7 +29,8 @@ describe('ManagerComponent', () => {
                 { provide: CollectionsService, useClass: CollectionsStubService },
                 { provide: ActivatedRoute, useValue: { snapshot: { paramMap: {
                                 get: function() { return collectionId; }
-                            }}}}
+                            }}}},
+                { provide: FileReader, useClass: FileReaderStub }
             ],
             imports: [
                 RouterTestingModule,
@@ -44,6 +46,8 @@ describe('ManagerComponent', () => {
     }));
 
     it('should create', async(() => {
+        fixture.detectChanges();
+
         expect(component).toBeTruthy();
     }));
 
@@ -159,6 +163,66 @@ describe('ManagerComponent', () => {
 
         expect(component.collection.size()).toBe(2);
     });
+
+    it('should display a CSV import file field and button', () => {
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('input[type=file]#fileInput').title).toContain('CSV');
+        expect(fixture.nativeElement.querySelector('button#import').innerText).toBe('Import');
+    });
+
+    it('should import items from CSV when pressing the button', fakeAsync(() => {
+        component.importFile = new File([], '');
+        const reader: FileReaderStub = TestBed.get(FileReader);
+        spyOn(reader, 'readAsText').and.callFake(() => reader.onload());
+        reader.result = 'q1,s1\nq2,s2';
+        fixture.detectChanges();
+
+        fixture.nativeElement.querySelector('#import').click();
+        tick();
+
+        expect(component.collection.cards).toContain(new Card('q1', 's1'));
+        expect(component.collection.cards).toContain(new Card('q2', 's2'));
+        expect(component.collection.size()).toBe(5);
+    }));
+
+    it('should not import an empty card when CSV ends in newline', fakeAsync(() => {
+        component.importFile = new File([], '');
+        const reader: FileReaderStub = TestBed.get(FileReader);
+        spyOn(reader, 'readAsText').and.callFake(() => reader.onload());
+        reader.result = 'q1,s1\n';
+        fixture.detectChanges();
+
+        fixture.nativeElement.querySelector('#import').click();
+        tick();
+
+        expect(component.collection.size()).toBe(4);
+    }));
+
+    it('should import from CSV before the skeleton card so no gap is produced', fakeAsync(() => {
+        component.importFile = new File([], '');
+        const reader: FileReaderStub = TestBed.get(FileReader);
+        spyOn(reader, 'readAsText').and.callFake(() => reader.onload());
+        reader.result = 'q1,s1';
+        fixture.detectChanges();
+
+        fixture.nativeElement.querySelector('#import').click();
+        tick();
+
+        expect(component.collection.cards[1]).toEqual(new Card('estar', 'to be (state, location)'));
+        expect(component.collection.cards[2]).toEqual(new Card('q1', 's1'));
+        expect(component.collection.cards[3]).toEqual(new Card('', ''));
+    }));
+
+    it('should mark the input field for validation when no file was provided', fakeAsync(() => {
+        component.importFile = undefined;
+
+        fixture.nativeElement.querySelector('#import').click();
+        tick();
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('#fileInput').className).toContain('error');
+    }));
 });
 
 
@@ -187,4 +251,13 @@ class CollectionsStubService {
     }
 
     deleteCollection() {}
+}
+
+@Injectable()
+class FileReaderStub {
+
+    result: string;
+    onload: () => void;
+
+    readAsText() {}
 }

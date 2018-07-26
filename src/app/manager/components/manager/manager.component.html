@@ -12,7 +12,8 @@
 
 <div id="importArea">
     Import a CSV file:
-    <input type="file" #fileInput (change)="fileChanged($event)" title="CSV file" />
+    <input type="file" #fileInput (change)="fileChanged($event)" id="fileInput"
+           [ngClass]="{ 'error': showFileInputError }" title="CSV file" />
     <button id="import" (click)="import()">Import</button>
 </div>
 

@@ -23,6 +23,8 @@ import {PapaParseModule} from 'ngx-papaparse';
         ManagerRoutingModule,
         BaseModule // has to come last due to catch-all route
     ],
-    providers: []
+    providers: [
+        FileReader
+    ]
 })
 export class ManagerModule { }

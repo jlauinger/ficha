@@ -55,3 +55,7 @@ button:hover {
 #importArea {
     margin-top: 2rem;
 }
+
+#fileInput.error {
+    border: 1px solid #e89393;
+}
