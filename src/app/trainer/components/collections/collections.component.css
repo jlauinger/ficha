@@ -33,6 +33,9 @@ li a.collection:focus, li a.collection:visited {
     display: block;
     font-weight: bold;
     font-size: 1.2rem;
+    min-height: 4.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .size {
     margin-top: .5rem;
@@ -90,7 +93,7 @@ button:focus {
     font-size: 1.2rem;
     color: #444;
     width: 100%;
-    margin-bottom: .85rem;
+    margin-bottom: 3.65rem;
 }
 #newName:focus {
     outline: none;
