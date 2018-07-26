@@ -5,7 +5,7 @@
 <div class="padding-top-1"></div>
 
 <app-edit *ngFor="let card of collection.cards"
-          [card]="card" (deleted)="delete(card)"></app-edit>
+          [card]="card" (deleted)="deleteCard(card)"></app-edit>
 
 <input type="text" [(ngModel)]="newQuestion" (keyup)="createNewCard()"
        id="newQuestion" title="Question" placeholder="Question" />

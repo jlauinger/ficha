@@ -18,7 +18,6 @@ export class ManagerComponent implements OnInit {
     newSolution = '';
 
     @ViewChild('fileInput') fileInput: ElementRef;
-
     importFile: File;
 
     constructor(private route: ActivatedRoute,
@@ -35,19 +34,19 @@ export class ManagerComponent implements OnInit {
         this.collection.add(new Card('', ''));
     }
 
-    public delete(card: Card) {
+    public createNewCard() {
+        this.collection.add(new Card(this.newQuestion, this.newSolution));
+        this.newQuestion = '';
+        this.newSolution = '';
+    }
+
+    public deleteCard(card: Card) {
         this.collection.remove(card);
     }
 
     public deleteCollection() {
         this.collectionsService.deleteCollection(this.collection.id);
         this.router.navigate(['/']);
-    }
-
-    public createNewCard() {
-        this.collection.add(new Card(this.newQuestion, this.newSolution));
-        this.newQuestion = '';
-        this.newSolution = '';
     }
 
     public fileChanged(event) {

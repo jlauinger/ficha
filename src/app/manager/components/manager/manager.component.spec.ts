@@ -66,6 +66,7 @@ describe('ManagerComponent', () => {
     it('should reflect input changes to the name', fakeAsync(() => {
         fixture.detectChanges();
         const element = fixture.nativeElement.querySelector('#name');
+
         element.value = 'new name';
         element.dispatchEvent(new Event('input'));
         tick();
