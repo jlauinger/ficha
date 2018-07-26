@@ -59,7 +59,7 @@ describe('ManagerComponent', () => {
 
         fixture.detectChanges();
 
-        expect(collectionService.getCollection).toHaveBeenCalledWith(42);
+        expect(collectionService.getCollection).toHaveBeenCalledWith('42');
     });
 
     it('should display the collection name in an input field', fakeAsync(() => {
@@ -130,7 +130,7 @@ describe('ManagerComponent', () => {
 
         fixture.nativeElement.querySelector('#delete').click();
 
-        expect(collectionService.deleteCollection).toHaveBeenCalledWith(1);
+        expect(collectionService.deleteCollection).toHaveBeenCalledWith('1');
     });
 
     it('should navigate back home when pressing the delete button', () => {
@@ -280,7 +280,7 @@ class EditStubComponent {
 class CollectionsStubService {
     collection: Collection;
     constructor() {
-        this.collection = new Collection(1, 'SPANISH');
+        this.collection = new Collection('1', 'SPANISH');
         this.collection.add(new Card('ser', 'to be (trait)'));
         this.collection.add(new Card('estar', 'to be (state, location)'));
         // remember the skeleton card stub (third item)

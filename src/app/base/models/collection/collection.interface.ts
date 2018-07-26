@@ -2,7 +2,7 @@ import {SerializedCard} from '../card/card.interface';
 
 export interface SerializedCollection {
 
-    id: number;
+    id: string;
     name: string;
 
     cards: SerializedCard[];

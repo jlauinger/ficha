@@ -26,8 +26,8 @@ describe('CollectionsService', () => {
     beforeEach(() => {
         service = TestBed.get(CollectionsService);
 
-        spanishCollection = new Collection(1, 'Spanish');
-        germanCollection = new Collection(2, 'German');
+        spanishCollection = new Collection('1', 'Spanish');
+        germanCollection = new Collection('2', 'German');
 
         service.collections = [spanishCollection, germanCollection];
     });
@@ -39,13 +39,13 @@ describe('CollectionsService', () => {
     });
 
     it('should return a the correct collection by index', () => {
-        const collection = service.getCollection(2);
+        const collection = service.getCollection('2');
 
         expect(collection).toBe(germanCollection);
     });
 
     it('should delete the correct collection', () => {
-        service.deleteCollection(1);
+        service.deleteCollection('1');
 
         expect(service.collections).toEqual([germanCollection]);
     });
@@ -56,15 +56,15 @@ describe('CollectionsService', () => {
         expect(service.collections).toContain(newCollection);
         expect(newCollection.name).toBe('English');
         expect(newCollection.size()).toBe(0);
-        expect(newCollection.id).not.toBe(1);
-        expect(newCollection.id).not.toBe(2);
+        expect(newCollection.id).not.toBe('1');
+        expect(newCollection.id).not.toBe('2');
     });
 
     it('should serialize', () => {
         const serialized: SerializedCollections = {
             collections: [
-                { id: 1, name: 'Spanish', currentCardIndex: -1, cards: [] },
-                { id: 2, name: 'German', currentCardIndex: -1, cards: [] }
+                { id: '1', name: 'Spanish', currentCardIndex: -1, cards: [] },
+                { id: '2', name: 'German', currentCardIndex: -1, cards: [] }
             ]
         };
 
@@ -73,7 +73,7 @@ describe('CollectionsService', () => {
 
     it('should deserialize', () => {
         const serialized: SerializedCollections = {
-            collections: [{ id: 2, name: 'German', currentCardIndex: -1, cards: [] }]
+            collections: [{ id: '2', name: 'German', currentCardIndex: -1, cards: [] }]
         };
 
         service.deserialize(serialized);
@@ -85,13 +85,13 @@ describe('CollectionsService', () => {
         const localStorageService = TestBed.get(LocalStorageService);
         const backendService = TestBed.get(BackendService);
         spyOn(localStorageService, 'getObject').and.returnValue({
-            collections: [{ id: 2, name: 'German', currentCardIndex: -1, cards: [] }]
+            collections: [{ id: '2', name: 'German', currentCardIndex: -1, cards: [] }]
         });
 
         const loadingService = new CollectionsService(localStorageService, backendService);
 
         expect(localStorageService.getObject).toHaveBeenCalledWith('collections');
-        expect(loadingService.collections).toEqual([new Collection(2, 'German')]);
+        expect(loadingService.collections).toEqual([new Collection('2', 'German')]);
     });
 
     it('should persist data to local storage', () => {
@@ -99,8 +99,8 @@ describe('CollectionsService', () => {
         spyOn(localStorageService, 'setObject');
         const serialized: SerializedCollections = {
             collections: [
-                { id: 1, name: 'Spanish', currentCardIndex: -1, cards: [] },
-                { id: 2, name: 'German', currentCardIndex: -1, cards: [] }
+                { id: '1', name: 'Spanish', currentCardIndex: -1, cards: [] },
+                { id: '2', name: 'German', currentCardIndex: -1, cards: [] }
             ]
         };
 
@@ -112,7 +112,7 @@ describe('CollectionsService', () => {
     it('should persist when deleting a collection', () => {
         spyOn(service, 'persist');
 
-        service.deleteCollection(1);
+        service.deleteCollection('1');
 
         expect(service.persist).toHaveBeenCalled();
     });
@@ -134,7 +134,7 @@ describe('CollectionsService', () => {
         const loadingService = new CollectionsService(localStorageService, backendService);
 
         expect(backendService.getCollections).toHaveBeenCalled();
-        expect(loadingService.collections).toEqual([new Collection(2, 'German')]);
+        expect(loadingService.collections).toEqual([new Collection('2', 'German')]);
     });
 });
 

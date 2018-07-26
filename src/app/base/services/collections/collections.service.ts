@@ -13,6 +13,7 @@ export class CollectionsService {
 
     constructor(private localStorageService: LocalStorageService,
                 private backendService: BackendService) {
+
         this.resumeFromLocalStorage();
     }
 
@@ -28,11 +29,11 @@ export class CollectionsService {
         return this.collections.slice();
     }
 
-    public getCollection(id: number): Collection {
+    public getCollection(id: string): Collection {
         return this.collections.find((collection: Collection) => collection.id === id);
     }
 
-    public deleteCollection(id: number) {
+    public deleteCollection(id: string) {
         const index = this.collections.findIndex((collection: Collection) => collection.id === id);
         this.collections.splice(index, 1);
         this.persist();
@@ -49,9 +50,8 @@ export class CollectionsService {
         this.persistToLocalStorage();
     }
 
-    private nextId(): number {
-        const ids = this.collections.map(collection => collection.id);
-        return Math.max(0, ...ids) + 1;
+    private nextId(): string {
+        return Math.random().toString(36).substring(6);
     }
 
     private persistToLocalStorage() {

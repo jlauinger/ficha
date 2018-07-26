@@ -83,7 +83,7 @@ describe('TrainerComponent', () => {
 
         fixture.detectChanges();
 
-        expect(collectionService.getCollection).toHaveBeenCalledWith(42);
+        expect(collectionService.getCollection).toHaveBeenCalledWith('42');
     });
 
     it('should reset the collection upon receiving it from the service', () => {
@@ -115,7 +115,7 @@ class CollectionsStubService {
     collection: Collection;
 
     constructor() {
-        this.collection = new Collection(1, 'SPANISH');
+        this.collection = new Collection('1', 'SPANISH');
         this.collection.add(new Card('ser', 'to be (trait)'));
         this.collection.add(new Card('estar', 'to be (state, location)'));
     }

@@ -8,7 +8,7 @@ describe('Collection', () => {
     let estarCard: Card;
 
     beforeEach(() => {
-        collection = new Collection(1);
+        collection = new Collection('1');
 
         serCard = new Card('ser', 'to be (trait)');
         estarCard = new Card('estar', 'to be (state, location)');
@@ -22,19 +22,19 @@ describe('Collection', () => {
     });
 
     it('should have the correct name if specified', () => {
-        const namedCollection = new Collection(1, 'SPANISH');
+        const namedCollection = new Collection('1', 'SPANISH');
 
         expect(namedCollection.name).toBe('SPANISH');
     });
 
     it('should have no cards in the beginning', () => {
-        const emptyCollection = new Collection(1);
+        const emptyCollection = new Collection('1');
 
         expect(emptyCollection.size()).toBe(0);
     });
 
     it('should raise an exception on next card if there are none', () => {
-        const emptyCollection = new Collection(1);
+        const emptyCollection = new Collection('1');
 
         expect(() => { emptyCollection.nextCard(); }).toThrow(new Error('Collection is empty.'));
     });
@@ -82,7 +82,7 @@ describe('Collection', () => {
 
     it('should serialize', () => {
         expect(collection.serialize()).toEqual({
-            id: 1,
+            id: '1',
             name: '',
             currentCardIndex: -1,
             cards: [
@@ -94,7 +94,7 @@ describe('Collection', () => {
 
     it('should deserialize', () => {
         const serialized = {
-            id: 1,
+            id: '1',
             name: '',
             currentCardIndex: -1,
             cards: [

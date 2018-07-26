@@ -29,7 +29,7 @@ export class ManagerComponent implements OnInit, OnDestroy {
                 private collectionsService: CollectionsService) {}
 
     ngOnInit() {
-        const collectionId = Number(this.route.snapshot.paramMap.get('id'));
+        const collectionId = this.route.snapshot.paramMap.get('id');
         this.collection = this.collectionsService.getCollection(collectionId);
 
         // add a skeleton input card at the end
