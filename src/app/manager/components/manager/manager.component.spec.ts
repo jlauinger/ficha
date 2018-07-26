@@ -123,6 +123,39 @@ describe('ManagerComponent', () => {
 
         expect(component.router.navigate).toHaveBeenCalledWith(['/']);
     });
+
+    it('should display two input fields to create a new card', () => {
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('input#newQuestion')).toBeTruthy();
+        expect(fixture.nativeElement.querySelector('input#newSolution')).toBeTruthy();
+    });
+
+    it('should create a new card upon typing in the fields for a new question, clear the field and change focus', fakeAsync(() => {
+        fixture.detectChanges();
+        const newQuestionElement = fixture.nativeElement.querySelector('#newQuestion');
+
+        newQuestionElement.dispatchEvent(new KeyboardEvent('keyup', {
+            'key': 'A'
+        }));
+        tick();
+
+        expect(component.collection.size()).toBe(3);
+        expect(component.newQuestion).toBe('');
+    }));
+
+    it('should create a new card upon typing in the fields for a new solution, clear the field and change focus', fakeAsync(() => {
+        fixture.detectChanges();
+        const newSolutionElement = fixture.nativeElement.querySelector('#newSolution');
+
+        newSolutionElement.dispatchEvent(new KeyboardEvent('keyup', {
+            'key': 'A'
+        }));
+        tick();
+
+        expect(component.collection.size()).toBe(3);
+        expect(component.newSolution).toBe('');
+    }));
 });
 
 

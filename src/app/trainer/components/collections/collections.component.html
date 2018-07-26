@@ -1,7 +1,7 @@
 <ul id="collections">
     <li *ngFor="let collection of collections">
         <a [routerLink]="['/', 'train', collection.id]" class="collection">
-            <span class="name">{{ collection.name }}</span>
+            <span class="name">{{ collection.name || '&nbsp;' }}</span>
             <span class="size">{{ collection.size() }} cards</span>
         </a>
         <div class="buttons">

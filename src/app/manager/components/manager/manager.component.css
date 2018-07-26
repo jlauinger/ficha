@@ -51,3 +51,19 @@ button:hover {
 #name:focus {
     outline: none;
 }
+
+#newQuestion, #newSolution {
+    border: 1px dashed #cacaca;
+    height: 2.5rem;
+    padding: .4rem .8rem;
+    font-family: monospace;
+    font-size: 1.2rem;
+    width: 450px;
+}
+#newQuestion:focus, #newSolution:focus {
+    outline: none;
+}
+
+#importArea {
+    margin-top: 2rem;
+}

@@ -7,6 +7,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {ManagerRoutingModule} from './manager-routing.module';
 import {ManagerComponent} from './components/manager/manager.component';
 import {EditComponent} from './components/edit/edit.component';
+import {PapaParseModule} from 'ngx-papaparse';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import {EditComponent} from './components/edit/edit.component';
     imports: [
         FormsModule,
         AutosizeModule,
+        PapaParseModule,
         BrowserModule,
         BrowserAnimationsModule,
         ManagerRoutingModule,

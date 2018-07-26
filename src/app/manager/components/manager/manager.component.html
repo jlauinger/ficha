@@ -1,4 +1,4 @@
-<input type="text" [(ngModel)]="collection.name" id="name" />
+<input type="text" [(ngModel)]="collection.name" id="name" placeholder="Name" title="Name" />
 <button id="add" (click)="add()">Add A Card</button>
 
 <div class="clearfix"></div>
@@ -6,6 +6,19 @@
 
 <app-edit *ngFor="let card of collection.cards"
           [card]="card" (deleted)="delete(card)"></app-edit>
+
+<input type="text" [(ngModel)]="newQuestion" (keyup)="createNewCard()"
+       id="newQuestion" title="Question" placeholder="Question" />
+<input type="text" [(ngModel)]="newSolution" (keyup)="createNewCard()"
+       id="newSolution" title="Solution" placeholder="Solution" />
+
+<div class="clearfix"></div>
+
+<div id="importArea">
+    Import a CSV file:
+    <input type="file" #fileInput (change)="fileChanged($event)" title="CSV file" />
+    <button id="import" (click)="import()">Import</button>
+</div>
 
 <a [routerLink]="['/']" id="exit">Back</a>
 <button id="delete" (click)="deleteCollection()">Delete Collection</button>
