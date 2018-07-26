@@ -6,6 +6,7 @@ import {CollectionsService} from '../../../base/services/collections/collections
 import {By} from '@angular/platform-browser';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormsModule} from '@angular/forms';
+import {Card} from '../../../base/models/card/card.model';
 
 
 describe('CollectionsComponent', () => {
@@ -50,6 +51,24 @@ describe('CollectionsComponent', () => {
 
         expect(fixture.nativeElement.querySelector('a.train').innerText).toBe('Train');
         expect(fixture.nativeElement.querySelector('a.manage').innerText).toBe('Manage');
+    });
+
+    it('should not display a link to train when the collection is empty', () => {
+        fixture.detectChanges();
+        component.collections = [new Collection(1)];
+
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('a.train')).not.toBeTruthy();
+    });
+
+    it('should link to manage a collection when the collection is empty', () => {
+        fixture.detectChanges();
+        component.collections = [new Collection(1)];
+
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('a.collection').href).toContain('manage');
     });
 
     it('should display a button and name input to create a new collection', () => {
@@ -106,10 +125,12 @@ describe('CollectionsComponent', () => {
 @Injectable()
 class CollectionsStubService {
     getCollections(): Collection[] {
-        return [
-            new Collection(1, 'Spanish'),
-            new Collection(2, 'German')
-        ];
+        const spanish = new Collection(1, 'Spanish');
+        const german = new Collection(2, 'German');
+
+        spanish.add(new Card('ser', 'to be (trait)'));
+
+        return [spanish, german];
     }
 
     createCollection() {}

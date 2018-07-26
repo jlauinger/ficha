@@ -1,11 +1,11 @@
 <ul id="collections">
     <li *ngFor="let collection of collections">
-        <a [routerLink]="['/', 'train', collection.id]" class="collection">
+        <a [routerLink]="mainLinkFor(collection)" class="collection">
             <span class="name">{{ collection.name || '&nbsp;' }}</span>
             <span class="size">{{ collection.size() }} cards</span>
         </a>
         <div class="buttons">
-            <a [routerLink]="['/', 'train', collection.id]" class="train">Train</a>
+            <a [routerLink]="['/', 'train', collection.id]" *ngIf="collection.size()" class="train">Train</a>
             <a [routerLink]="['/', 'manage', collection.id]" class="manage">Manage</a>
         </div>
     </li>

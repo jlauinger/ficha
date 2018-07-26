@@ -23,4 +23,10 @@ export class CollectionsComponent implements OnInit {
         this.collections.push(newCollection);
         this.newName = '';
     }
+
+    public mainLinkFor(collection: Collection) {
+        return collection.size()
+            ? ['/', 'train', collection.id]
+            : ['/', 'manage', collection.id];
+    }
 }
