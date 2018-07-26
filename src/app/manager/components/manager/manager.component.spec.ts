@@ -11,6 +11,7 @@ import {FormsModule} from '@angular/forms';
 import {PapaParseModule} from 'ngx-papaparse';
 import {FileChangeEvent} from '@angular/compiler-cli/src/perform_watch';
 import {runFilenameOrFn_} from 'protractor/built/util';
+import * as FileSaver from 'file-saver';
 
 
 describe('ManagerComponent', () => {
@@ -218,10 +219,26 @@ describe('ManagerComponent', () => {
         component.importFile = undefined;
 
         fixture.nativeElement.querySelector('#import').click();
-        tick();
         fixture.detectChanges();
 
         expect(fixture.nativeElement.querySelector('#fileInput').className).toContain('error');
+    }));
+
+    it('should display an export CSV button', () => {
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('button#export').innerText).toBe('Export');
+    });
+
+    fit('should download a CSV file with the collection when pressing the button', fakeAsync(() => {
+        spyOn(FileSaver, 'saveAs');
+        const file = new File(['ser,to be (trait)', 'estar,to be (state, location)'],
+            'SPANISH.csv', { type: 'text/csv;charset=utf-8' });
+        fixture.detectChanges();
+
+        fixture.nativeElement.querySelector('#export').click();
+
+        expect(FileSaver.saveAs).toHaveBeenCalledWith(file);
     }));
 });
 

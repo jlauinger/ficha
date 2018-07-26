@@ -4,6 +4,7 @@ import {Collection} from '../../../base/models/collection/collection.model';
 import {CollectionsService} from '../../../base/services/collections/collections.service';
 import {Card} from '../../../base/models/card/card.model';
 import {PapaParseService} from 'ngx-papaparse';
+import * as FileSaver from 'file-saver';
 
 @Component({
     selector: 'app-manager',
@@ -72,6 +73,13 @@ export class ManagerComponent implements OnInit, OnDestroy {
         this.reader.onload = () => this.parseCsv(this.reader.result);
         this.reader.readAsText(this.importFile);
         this.fileInput.nativeElement.value = '';
+    }
+
+    public export() {
+        const csv = 'a,b\n';
+        const file = new File(csv.split('\n'), this.collection.name + '.csv',
+            { type: 'text/csv;charset=utf-8' });
+        FileSaver.saveAs(file);
     }
 
     private parseCsv(csv: string) {
