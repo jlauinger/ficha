@@ -21,23 +21,17 @@ export class Collection {
     public static deserialize(serialized: SerializedCollection): Collection {
         const collection = new Collection(serialized.id, serialized.name);
         collection.currentCardIndex = serialized.currentCardIndex;
-        serialized.cards.forEach((card: SerializedCard) => {
-            collection.cards.push(Card.deserialize(card));
-        });
+        collection.cards = serialized.cards.map(c => Card.deserialize(c));
         return collection;
     }
 
     public serialize(): SerializedCollection {
-        const serialized: SerializedCollection = {
+        return {
             id: this.id,
             name: this.name,
             currentCardIndex: this.currentCardIndex,
-            cards: []
+            cards: this.cards.map(c => c.serialize())
         };
-        this.cards.forEach((card: Card) => {
-            serialized.cards.push(card.serialize());
-        });
-        return serialized;
     }
 
     public size(): number {

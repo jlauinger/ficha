@@ -1,5 +1,6 @@
 import {CollectionsService} from './collections.service';
 import {Collection} from '../../models/collection/collection.model';
+import {SerializedCollections} from './collections.interface';
 
 describe('CollectionsService', () => {
 
@@ -43,5 +44,28 @@ describe('CollectionsService', () => {
         expect(newCollection.size()).toBe(0);
         expect(newCollection.id).not.toBe(1);
         expect(newCollection.id).not.toBe(2);
+    });
+
+    it('should serialize', () => {
+        const serialized: SerializedCollections = {
+            collections: [
+                { id: 1, name: 'Spanish', currentCardIndex: -1, cards: [] },
+                { id: 2, name: 'German', currentCardIndex: -1, cards: [] }
+            ]
+        };
+
+        expect(service.serialize()).toEqual(serialized);
+    });
+
+    it('should deserialize', () => {
+        const serialized: SerializedCollections = {
+            collections: [
+                { id: 2, name: 'German', currentCardIndex: -1, cards: [] }
+            ]
+        };
+
+        service.deserialize(serialized);
+
+        expect(service.collections).toEqual([germanCollection]);
     });
 });

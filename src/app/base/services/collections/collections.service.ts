@@ -1,10 +1,19 @@
 import {Injectable} from '@angular/core';
 import {Collection} from '../../models/collection/collection.model';
+import {SerializedCollections} from './collections.interface';
 
 @Injectable()
 export class CollectionsService {
 
     collections: Collection[] = [];
+
+    public serialize(): SerializedCollections {
+        return { collections: this.collections.map(c => c.serialize()) };
+    }
+
+    public deserialize(serialized: SerializedCollections) {
+        this.collections = serialized.collections.map(c => Collection.deserialize(c));
+    }
 
     public getCollections(): Collection[] {
         return this.collections.slice();
