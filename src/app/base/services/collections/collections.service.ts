@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Collection} from '../../models/collection/collection.model';
 import {SerializedCollections} from './collections.interface';
 import {LocalStorageService} from '../local-storage/local-storage.service';
+import {BackendService} from '../backend/backend.service';
 
 @Injectable()
 export class CollectionsService {
@@ -10,7 +11,8 @@ export class CollectionsService {
 
     readonly localStorageKey = 'collections';
 
-    constructor(private localStorageService: LocalStorageService) {
+    constructor(private localStorageService: LocalStorageService,
+                private backendService: BackendService) {
         this.resumeFromLocalStorage();
     }
 

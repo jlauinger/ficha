@@ -1,18 +1,30 @@
 import {CollectionsService} from './collections.service';
 import {Collection} from '../../models/collection/collection.model';
 import {SerializedCollections} from './collections.interface';
+import {BackendService} from '../backend/backend.service';
+import {TestBed} from '@angular/core/testing';
+import {LocalStorageService} from '../local-storage/local-storage.service';
+import {Observable} from 'rxjs';
 
 describe('CollectionsService', () => {
 
-    let localStorageService: LocalStorageServiceMock;
     let service: CollectionsService;
 
     let spanishCollection: Collection;
     let germanCollection: Collection;
 
     beforeEach(() => {
-        localStorageService = new LocalStorageServiceMock();
-        service = new CollectionsService(localStorageService);
+        TestBed.configureTestingModule({
+            providers: [
+                CollectionsService,
+                { provide: LocalStorageService, useClass: LocalStorageServiceMock },
+                { provide: BackendService, useClass: BackendServiceMock }
+            ]
+        });
+    });
+
+    beforeEach(() => {
+        service = TestBed.get(CollectionsService);
 
         spanishCollection = new Collection(1, 'Spanish');
         germanCollection = new Collection(2, 'German');
@@ -70,16 +82,20 @@ describe('CollectionsService', () => {
     });
 
     it('should load data from local storage when created', () => {
+        const localStorageService = TestBed.get(LocalStorageService);
+        const backendService = TestBed.get(BackendService);
         spyOn(localStorageService, 'getObject').and.returnValue({
             collections: [{ id: 2, name: 'German', currentCardIndex: -1, cards: [] }]
         });
-        const loadingService = new CollectionsService(localStorageService);
+
+        const loadingService = new CollectionsService(localStorageService, backendService);
 
         expect(localStorageService.getObject).toHaveBeenCalledWith('collections');
         expect(loadingService.collections).toEqual([new Collection(2, 'German')]);
     });
 
     it('should persist data to local storage', () => {
+        const localStorageService = TestBed.get(LocalStorageService);
         spyOn(localStorageService, 'setObject');
         const serialized: SerializedCollections = {
             collections: [
@@ -108,10 +124,26 @@ describe('CollectionsService', () => {
 
         expect(service.persist).toHaveBeenCalled();
     });
+
+    it('should load data from server backend when created', () => {
+        const localStorageService = TestBed.get(LocalStorageService);
+        const backendService = TestBed.get(BackendService);
+        spyOn(backendService, 'getCollections').and.returnValue([
+            { id: 2, name: 'German', currentCardIndex: -1, cards: [] }
+        ]);
+        const loadingService = new CollectionsService(localStorageService, backendService);
+
+        expect(backendService.getCollections).toHaveBeenCalled();
+        expect(loadingService.collections).toEqual([new Collection(2, 'German')]);
+    });
 });
 
 
 class LocalStorageServiceMock {
     public getObject(key: string): any { return null; }
     public setObject(key: string, data: any) {}
+}
+
+class BackendServiceMock {
+    public getCollections(): Observable<Collection[]> { return null; }
 }
