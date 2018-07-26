@@ -30,7 +30,7 @@ export class ManagerComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         const collectionId = this.route.snapshot.paramMap.get('id');
-        this.collection = this.collectionsService.getCollection(collectionId);
+        this.collection = this.collectionsService.getLocalCollection(collectionId);
 
         // add a skeleton input card at the end
         this.addEmptyCard();
@@ -51,7 +51,7 @@ export class ManagerComponent implements OnInit, OnDestroy {
     }
 
     public deleteCollection() {
-        this.collectionsService.deleteCollection(this.collection.id);
+        this.collectionsService.deleteLocalCollection(this.collection.id);
         this.navigateHome();
     }
 

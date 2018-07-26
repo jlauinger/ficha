@@ -27,21 +27,21 @@ export class CollectionsService {
         this.localCollections = serialized.collections.map(c => Collection.deserialize(c));
     }
 
-    public getCollections(): Collection[] {
+    public getLocalCollections(): Collection[] {
         return this.localCollections.slice();
     }
 
-    public getCollection(id: string): Collection {
+    public getLocalCollection(id: string): Collection {
         return this.localCollections.find((collection: Collection) => collection.id === id);
     }
 
-    public deleteCollection(id: string) {
+    public deleteLocalCollection(id: string) {
         const index = this.localCollections.findIndex((collection: Collection) => collection.id === id);
         this.localCollections.splice(index, 1);
         this.persist();
     }
 
-    public createCollection(name: string = ''): Collection {
+    public createLocalCollection(name: string = ''): Collection {
         const newCollection = new Collection(this.nextId(), name);
         this.localCollections.push(newCollection);
         this.persist();

@@ -15,11 +15,11 @@ export class CollectionsComponent implements OnInit {
     constructor(private collectionsService: CollectionsService) {}
 
     ngOnInit(): void {
-        this.collections = this.collectionsService.getCollections();
+        this.collections = this.collectionsService.getLocalCollections();
     }
 
     public new() {
-        const newCollection = this.collectionsService.createCollection(this.newName);
+        const newCollection = this.collectionsService.createLocalCollection(this.newName);
         this.collections.push(newCollection);
         this.newName = '';
     }

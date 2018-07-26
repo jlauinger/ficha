@@ -55,7 +55,7 @@ describe('CollectionsComponent', () => {
 
     it('should not display a link to train when the collection is empty', () => {
         fixture.detectChanges();
-        component.collections = [new Collection(1)];
+        component.collections = [new Collection('1')];
 
         fixture.detectChanges();
 
@@ -64,7 +64,7 @@ describe('CollectionsComponent', () => {
 
     it('should link to manage a collection when the collection is empty', () => {
         fixture.detectChanges();
-        component.collections = [new Collection(1)];
+        component.collections = [new Collection('1')];
 
         fixture.detectChanges();
 
@@ -81,7 +81,7 @@ describe('CollectionsComponent', () => {
     it('should get a new collection with correct name from the service when pressing the button', fakeAsync(() => {
         fixture.detectChanges();
         const collectionService: CollectionsStubService = TestBed.get(CollectionsService);
-        spyOn(collectionService, 'createCollection');
+        spyOn(collectionService, 'createLocalCollection');
         const element = fixture.nativeElement.querySelector('#newName');
         element.value = 'NEW NAME';
         element.dispatchEvent(new Event('input'));
@@ -89,14 +89,14 @@ describe('CollectionsComponent', () => {
 
         fixture.nativeElement.querySelector('#new').click();
 
-        expect(collectionService.createCollection).toHaveBeenCalledWith('NEW NAME');
+        expect(collectionService.createLocalCollection).toHaveBeenCalledWith('NEW NAME');
         expect(component.collections.length).toBe(3);
     }));
 
     it('should get a new collection with correct name from the service when pressing return', fakeAsync(() => {
         fixture.detectChanges();
         const collectionService: CollectionsStubService = TestBed.get(CollectionsService);
-        spyOn(collectionService, 'createCollection');
+        spyOn(collectionService, 'createLocalCollection');
         const element = fixture.nativeElement.querySelector('#newName');
         element.value = 'NEW NAME';
         element.dispatchEvent(new Event('input'));
@@ -107,7 +107,7 @@ describe('CollectionsComponent', () => {
         }));
         tick();
 
-        expect(collectionService.createCollection).toHaveBeenCalledWith('NEW NAME');
+        expect(collectionService.createLocalCollection).toHaveBeenCalledWith('NEW NAME');
         expect(component.collections.length).toBe(3);
     }));
 
@@ -124,14 +124,14 @@ describe('CollectionsComponent', () => {
 
 @Injectable()
 class CollectionsStubService {
-    getCollections(): Collection[] {
-        const spanish = new Collection(1, 'Spanish');
-        const german = new Collection(2, 'German');
+    getLocalCollections(): Collection[] {
+        const spanish = new Collection('1', 'Spanish');
+        const german = new Collection('2', 'German');
 
         spanish.add(new Card('ser', 'to be (trait)'));
 
         return [spanish, german];
     }
 
-    createCollection() {}
+    createLocalCollection() {}
 }

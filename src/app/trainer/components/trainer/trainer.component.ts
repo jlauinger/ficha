@@ -19,7 +19,7 @@ export class TrainerComponent implements OnInit {
 
     ngOnInit() {
         const collectionId = this.route.snapshot.paramMap.get('id');
-        this.collection = this.collectionsService.getCollection(collectionId);
+        this.collection = this.collectionsService.getLocalCollection(collectionId);
         this.collection.reset();
         this.next();
     }

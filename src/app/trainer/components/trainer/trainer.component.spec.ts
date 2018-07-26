@@ -78,12 +78,12 @@ describe('TrainerComponent', () => {
 
     it('should request the correct collection from CollectionService', () => {
         const collectionService: CollectionsService = TestBed.get(CollectionsService);
-        spyOn(collectionService, 'getCollection').and.callThrough();
+        spyOn(collectionService, 'getLocalCollection').and.callThrough();
         collectionId = '42';
 
         fixture.detectChanges();
 
-        expect(collectionService.getCollection).toHaveBeenCalledWith('42');
+        expect(collectionService.getLocalCollection).toHaveBeenCalledWith('42');
     });
 
     it('should reset the collection upon receiving it from the service', () => {
@@ -120,7 +120,7 @@ class CollectionsStubService {
         this.collection.add(new Card('estar', 'to be (state, location)'));
     }
 
-    getCollection() {
+    getLocalCollection() {
         return this.collection;
     }
 }

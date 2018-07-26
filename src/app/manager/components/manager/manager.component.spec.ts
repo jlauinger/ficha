@@ -54,12 +54,12 @@ describe('ManagerComponent', () => {
 
     it('should request the correct collection from CollectionService', () => {
         const collectionService: CollectionsService = TestBed.get(CollectionsService);
-        spyOn(collectionService, 'getCollection').and.callThrough();
+        spyOn(collectionService, 'getLocalCollection').and.callThrough();
         collectionId = '42';
 
         fixture.detectChanges();
 
-        expect(collectionService.getCollection).toHaveBeenCalledWith('42');
+        expect(collectionService.getLocalCollection).toHaveBeenCalledWith('42');
     });
 
     it('should display the collection name in an input field', fakeAsync(() => {
@@ -125,12 +125,12 @@ describe('ManagerComponent', () => {
 
     it('should delete the collection through the service when pressing the button', () => {
         const collectionService: CollectionsStubService = TestBed.get(CollectionsService);
-        spyOn(collectionService, 'deleteCollection');
+        spyOn(collectionService, 'deleteLocalCollection');
         fixture.detectChanges();
 
         fixture.nativeElement.querySelector('#delete').click();
 
-        expect(collectionService.deleteCollection).toHaveBeenCalledWith('1');
+        expect(collectionService.deleteLocalCollection).toHaveBeenCalledWith('1');
     });
 
     it('should navigate back home when pressing the delete button', () => {
@@ -285,10 +285,10 @@ class CollectionsStubService {
         this.collection.add(new Card('estar', 'to be (state, location)'));
         // remember the skeleton card stub (third item)
     }
-    getCollection(): Collection {
+    getLocalCollection(): Collection {
         return this.collection;
     }
-    deleteCollection() {}
+    deleteLocalCollection() {}
     persist() {}
 }
 

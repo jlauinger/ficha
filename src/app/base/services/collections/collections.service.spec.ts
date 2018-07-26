@@ -33,25 +33,25 @@ describe('CollectionsService', () => {
     });
 
     it('should return a list of collections', () => {
-        const collections = service.getCollections();
+        const collections = service.getLocalCollections();
 
         expect(collections).toEqual([spanishCollection, germanCollection]);
     });
 
     it('should return a the correct collection by index', () => {
-        const collection = service.getCollection('2');
+        const collection = service.getLocalCollection('2');
 
         expect(collection).toBe(germanCollection);
     });
 
     it('should delete the correct collection', () => {
-        service.deleteCollection('1');
+        service.deleteLocalCollection('1');
 
         expect(service.localCollections).toEqual([germanCollection]);
     });
 
     it('should return a new collection with specified name and a unique ID', () => {
-        const newCollection = service.createCollection('English');
+        const newCollection = service.createLocalCollection('English');
 
         expect(service.localCollections).toContain(newCollection);
         expect(newCollection.name).toBe('English');
@@ -112,7 +112,7 @@ describe('CollectionsService', () => {
     it('should persist when deleting a collection', () => {
         spyOn(service, 'persist');
 
-        service.deleteCollection('1');
+        service.deleteLocalCollection('1');
 
         expect(service.persist).toHaveBeenCalled();
     });
@@ -120,7 +120,7 @@ describe('CollectionsService', () => {
     it('should persist when creating a collection', () => {
         spyOn(service, 'persist');
 
-        service.createCollection();
+        service.createLocalCollection();
 
         expect(service.persist).toHaveBeenCalled();
     });
