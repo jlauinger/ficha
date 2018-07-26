@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Collection} from '../../../base/models/collection/collection.model';
 import {CollectionsService} from '../../../base/services/collections/collections.service';
@@ -56,20 +56,20 @@ export class ManagerComponent implements OnInit {
 
     public import() {
         const fileReader = new FileReader();
-        fileReader.onload = (error) => {
-            this.importCsv(fileReader.result);
-        };
+        fileReader.onload = () => this.parseCsv(fileReader.result);
         fileReader.readAsText(this.importFile);
         this.fileInput.nativeElement.value = '';
     }
 
-    private importCsv(csv: string) {
+    private parseCsv(csv: string) {
         this.papa.parse(csv, {
-            complete: (results) => {
-                results.data.forEach((item) => {
-                    this.collection.add(new Card(item[0], item[1]));
-                });
-            }
+            complete: (results) => this.importCsvItems(results.data)
+        });
+    }
+
+    private importCsvItems(items) {
+        items.forEach((item) => {
+            this.collection.add(new Card(item[0], item[1]));
         });
     }
 }

@@ -8,6 +8,7 @@ import {ActivatedRoute} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
+import {PapaParseModule} from 'ngx-papaparse';
 
 
 describe('ManagerComponent', () => {
@@ -30,7 +31,8 @@ describe('ManagerComponent', () => {
             ],
             imports: [
                 RouterTestingModule,
-                FormsModule
+                FormsModule,
+                PapaParseModule
             ]
         }).compileComponents();
     }));
