@@ -1,16 +1,12 @@
 <input type="text" [(ngModel)]="collection.name" id="name" placeholder="Name" title="Name" />
-<button id="add" (click)="add()">Add A Card</button>
+<button id="add" (click)="addEmptyCard()">Add A Card</button>
 
 <div class="clearfix"></div>
 <div class="padding-top-1"></div>
 
-<app-edit *ngFor="let card of collection.cards"
-          [card]="card" (deleted)="deleteCard(card)"></app-edit>
-
-<input type="text" [(ngModel)]="newQuestion" (keyup)="createNewCard()"
-       id="newQuestion" title="Question" placeholder="Question" />
-<input type="text" [(ngModel)]="newSolution" (keyup)="createNewCard()"
-       id="newSolution" title="Solution" placeholder="Solution" />
+<app-edit *ngFor="let card of collection.cards; let last = last;"
+          [card]="card" (deleted)="deleteCard(card)"
+          [skeleton]="last" (created)="addEmptyCard()"></app-edit>
 
 <div class="clearfix"></div>
 

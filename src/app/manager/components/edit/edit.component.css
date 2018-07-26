@@ -16,7 +16,7 @@ button:hover {
     float: right;
 }
 
-input {
+input.real {
     border: none;
     height: 2.5rem;
     padding: .4rem .8rem;
@@ -28,10 +28,19 @@ input:focus {
     outline: none;
 }
 
-#question {
+#question.real {
     background-color: #cacaca;
 }
-#solution {
+#solution.real {
     background-color: #333;
     color: #eee;
+}
+
+input.skeleton {
+    border: 1px dashed #cacaca;
+    height: 2.5rem;
+    padding: .4rem .8rem;
+    font-family: monospace;
+    font-size: 1.2rem;
+    width: 450px;
 }

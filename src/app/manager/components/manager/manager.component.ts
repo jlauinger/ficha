@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Collection} from '../../../base/models/collection/collection.model';
 import {CollectionsService} from '../../../base/services/collections/collections.service';
@@ -10,15 +10,14 @@ import {PapaParseService} from 'ngx-papaparse';
     templateUrl: './manager.component.html',
     styleUrls: ['./manager.component.css']
 })
-export class ManagerComponent implements OnInit {
+export class ManagerComponent implements OnInit, OnDestroy {
 
     collection: Collection;
 
-    newQuestion = '';
-    newSolution = '';
-
     @ViewChild('fileInput') fileInput: ElementRef;
     importFile: File;
+
+    skeletonCard: Card;
 
     constructor(private route: ActivatedRoute,
                 public router: Router,
@@ -28,16 +27,18 @@ export class ManagerComponent implements OnInit {
     ngOnInit() {
         const collectionId = Number(this.route.snapshot.paramMap.get('id'));
         this.collection = this.collectionsService.getCollection(collectionId);
+
+        // add a skeleton input card at the end
+        this.addEmptyCard();
     }
 
-    public add() {
-        this.collection.add(new Card('', ''));
+    ngOnDestroy(): void {
+        this.collection.remove(this.skeletonCard);
     }
 
-    public createNewCard() {
-        this.collection.add(new Card(this.newQuestion, this.newSolution));
-        this.newQuestion = '';
-        this.newSolution = '';
+    public addEmptyCard() {
+        this.skeletonCard = new Card('', '');
+        this.collection.add(this.skeletonCard);
     }
 
     public deleteCard(card: Card) {
