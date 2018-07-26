@@ -9,23 +9,11 @@ describe('CollectionsService', () => {
     let spanishCollection: Collection;
     let germanCollection: Collection;
 
-    let serCard: Card;
-    let estarCard: Card;
-    let gehenCard: Card;
-
     beforeEach(() => {
         service = new CollectionsService();
 
         spanishCollection = new Collection(1, 'Spanish');
         germanCollection = new Collection(2, 'German');
-
-        serCard = new Card('ser', 'to be (trait)');
-        estarCard = new Card('estar', 'to be (state, location');
-        gehenCard = new Card('gehen', 'to walk');
-
-        spanishCollection.add(serCard);
-        spanishCollection.add(estarCard);
-        germanCollection.add(gehenCard);
 
         service.collections = [spanishCollection, germanCollection];
     });
