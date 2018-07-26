@@ -1,6 +1,5 @@
 import {CollectionsService} from './collections.service';
 import {Collection} from '../../models/collection/collection.model';
-import {Card} from '../../models/card/card.model';
 
 describe('CollectionsService', () => {
 
