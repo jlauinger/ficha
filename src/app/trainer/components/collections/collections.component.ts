@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CollectionsService} from '../../../base/services/collections/collections.service';
 import {Collection} from '../../../base/models/collection/collection.model';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-collections',
@@ -9,18 +10,20 @@ import {Collection} from '../../../base/models/collection/collection.model';
 })
 export class CollectionsComponent implements OnInit {
 
-    collections: Collection[];
+    localCollections: Collection[];
+    remoteCollections: Observable<Collection[]>;
     newName = '';
 
     constructor(private collectionsService: CollectionsService) {}
 
     ngOnInit(): void {
-        this.collections = this.collectionsService.getLocalCollections();
+        this.localCollections = this.collectionsService.getLocalCollections();
+        this.remoteCollections = this.collectionsService.getRemoteCollections();
     }
 
     public new() {
         const newCollection = this.collectionsService.createLocalCollection(this.newName);
-        this.collections.push(newCollection);
+        this.localCollections.push(newCollection);
         this.newName = '';
     }
 

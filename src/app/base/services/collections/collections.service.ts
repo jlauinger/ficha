@@ -3,12 +3,14 @@ import {Collection} from '../../models/collection/collection.model';
 import {SerializedCollections} from './collections.interface';
 import {LocalStorageService} from '../local-storage/local-storage.service';
 import {BackendService} from '../backend/backend.service';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class CollectionsService {
 
     localCollections: Collection[] = [];
-    remoteCollections: Collection[] = [];
+    remoteCollections: Observable<Collection[]>;
 
     readonly localStorageKey = 'collections';
 
@@ -52,6 +54,16 @@ export class CollectionsService {
         this.persistToLocalStorage();
     }
 
+    public getRemoteCollections(): Observable<Collection[]> {
+        return this.remoteCollections;
+    }
+
+    public getRemoteCollection(id: string): Observable<Collection> {
+        return this.remoteCollections.pipe(map((collections) => {
+            return collections.find((collection: Collection) => collection.id === id);
+        }));
+    }
+
     private nextId(): string {
         return Math.random().toString(36).substring(6);
     }
@@ -69,8 +81,6 @@ export class CollectionsService {
     }
 
     private loadRemoteCollections() {
-        this.backendService.getCollections().subscribe((collections) => {
-            this.remoteCollections = collections;
-        });
+        this.remoteCollections = this.backendService.getCollections();
     }
 }

@@ -2,7 +2,7 @@ import {CollectionsService} from './collections.service';
 import {Collection} from '../../models/collection/collection.model';
 import {SerializedCollections} from './collections.interface';
 import {BackendService} from '../backend/backend.service';
-import {TestBed} from '@angular/core/testing';
+import {async, TestBed} from '@angular/core/testing';
 import {LocalStorageService} from '../local-storage/local-storage.service';
 import {Observable, of} from 'rxjs';
 
@@ -12,6 +12,7 @@ describe('CollectionsService', () => {
 
     let spanishCollection: Collection;
     let germanCollection: Collection;
+    let englishCollection: Collection;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -28,29 +29,31 @@ describe('CollectionsService', () => {
 
         spanishCollection = new Collection('1', 'Spanish');
         germanCollection = new Collection('2', 'German');
+        englishCollection = new Collection('42', 'English');
 
         service.localCollections = [spanishCollection, germanCollection];
+        service.remoteCollections = of([englishCollection]);
     });
 
-    it('should return a list of collections', () => {
+    it('should return a list of local collections', () => {
         const collections = service.getLocalCollections();
 
         expect(collections).toEqual([spanishCollection, germanCollection]);
     });
 
-    it('should return a the correct collection by index', () => {
+    it('should return the correct local collection by index', () => {
         const collection = service.getLocalCollection('2');
 
         expect(collection).toBe(germanCollection);
     });
 
-    it('should delete the correct collection', () => {
+    it('should delete the correct local collection', () => {
         service.deleteLocalCollection('1');
 
         expect(service.localCollections).toEqual([germanCollection]);
     });
 
-    it('should return a new collection with specified name and a unique ID', () => {
+    it('should return a new local collection with specified name and a unique ID', () => {
         const newCollection = service.createLocalCollection('English');
 
         expect(service.localCollections).toContain(newCollection);
@@ -125,7 +128,7 @@ describe('CollectionsService', () => {
         expect(service.persist).toHaveBeenCalled();
     });
 
-    it('should load data from server backend when created', () => {
+    it('should load data from server backend when created', async(() => {
         const localStorageService = TestBed.get(LocalStorageService);
         const backendService = TestBed.get(BackendService);
         spyOn(backendService, 'getCollections').and.returnValue(of([
@@ -134,8 +137,22 @@ describe('CollectionsService', () => {
         const loadingService = new CollectionsService(localStorageService, backendService);
 
         expect(backendService.getCollections).toHaveBeenCalled();
-        expect(loadingService.remoteCollections).toEqual([new Collection('2', 'German')]);
-    });
+        loadingService.remoteCollections.subscribe((collections) => {
+            expect(collections).toEqual([new Collection('2', 'German')]);
+        });
+    }));
+
+    it('should return a list of remote collections', async(() => {
+        const collections = service.getRemoteCollections();
+
+        collections.subscribe(c => expect(c).toEqual([englishCollection]));
+    }));
+
+    it('should return the correct remote collection by index', async(() => {
+        const collection = service.getRemoteCollection('42');
+
+        collection.subscribe(c => expect(c).toBe(englishCollection));
+    }));
 });
 
 

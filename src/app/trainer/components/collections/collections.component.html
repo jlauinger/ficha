@@ -1,5 +1,21 @@
-<ul id="collections">
-    <li *ngFor="let collection of collections">
+<h2>Community Collections</h2>
+
+<ul class="collections">
+    <li *ngFor="let collection of remoteCollections | async">
+        <a [routerLink]="['/', 'train', collection.id]" class="collection">
+            <span class="name">{{ collection.name || '&nbsp;' }}</span>
+            <span class="size">{{ collection.cards.length }} cards</span>
+        </a>
+        <div class="buttons">
+            <a [routerLink]="['/', 'train', collection.id]" *ngIf="collection.cards.length" class="train">Train</a>
+        </div>
+    </li>
+</ul>
+
+<h2>Local Collections</h2>
+
+<ul class="collections">
+    <li *ngFor="let collection of localCollections">
         <a [routerLink]="mainLinkFor(collection)" class="collection">
             <span class="name">{{ collection.name || '&nbsp;' }}</span>
             <span class="size">{{ collection.size() }} cards</span>

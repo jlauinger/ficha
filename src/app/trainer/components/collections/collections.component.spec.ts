@@ -7,6 +7,7 @@ import {By} from '@angular/platform-browser';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormsModule} from '@angular/forms';
 import {Card} from '../../../base/models/card/card.model';
+import {Observable, of} from 'rxjs';
 
 
 describe('CollectionsComponent', () => {
@@ -43,7 +44,7 @@ describe('CollectionsComponent', () => {
 
         expect(fixture.debugElement.queryAll(By.css('li a .name')).map(
             (node) => node.nativeElement.innerText))
-            .toEqual(['Spanish', 'German']);
+            .toEqual(['English', 'Spanish', 'German']);
     });
 
     it('should display a link to train, and one to manage, each collection', () => {
@@ -55,7 +56,7 @@ describe('CollectionsComponent', () => {
 
     it('should not display a link to train when the collection is empty', () => {
         fixture.detectChanges();
-        component.collections = [new Collection('1')];
+        component.localCollections = [new Collection('1')];
 
         fixture.detectChanges();
 
@@ -64,7 +65,8 @@ describe('CollectionsComponent', () => {
 
     it('should link to manage a collection when the collection is empty', () => {
         fixture.detectChanges();
-        component.collections = [new Collection('1')];
+        component.localCollections = [new Collection('1')];
+        component.remoteCollections = of([]);
 
         fixture.detectChanges();
 
@@ -90,7 +92,7 @@ describe('CollectionsComponent', () => {
         fixture.nativeElement.querySelector('#new').click();
 
         expect(collectionService.createLocalCollection).toHaveBeenCalledWith('NEW NAME');
-        expect(component.collections.length).toBe(3);
+        expect(component.localCollections.length).toBe(3);
     }));
 
     it('should get a new collection with correct name from the service when pressing return', fakeAsync(() => {
@@ -108,7 +110,7 @@ describe('CollectionsComponent', () => {
         tick();
 
         expect(collectionService.createLocalCollection).toHaveBeenCalledWith('NEW NAME');
-        expect(component.collections.length).toBe(3);
+        expect(component.localCollections.length).toBe(3);
     }));
 
     it('should reset new name input after creating the new collection', () => {
@@ -132,6 +134,8 @@ class CollectionsStubService {
 
         return [spanish, german];
     }
-
+    getRemoteCollections(): Observable<Collection[]> {
+        return of([new Collection('42', 'English')]);
+    }
     createLocalCollection() {}
 }
