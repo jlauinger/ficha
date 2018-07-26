@@ -88,32 +88,30 @@ describe('CollectionsService', () => {
             ]
         };
 
-        service.persistToLocalStorage();
+        service.persist();
 
         expect(localStorageService.setObject).toHaveBeenCalledWith('collections', serialized);
     });
 
     it('should persist when deleting a collection', () => {
-        spyOn(service, 'persistToLocalStorage');
+        spyOn(service, 'persist');
 
         service.deleteCollection(1);
 
-        expect(service.persistToLocalStorage).toHaveBeenCalled();
+        expect(service.persist).toHaveBeenCalled();
     });
 
     it('should persist when creating a collection', () => {
-        spyOn(service, 'persistToLocalStorage');
+        spyOn(service, 'persist');
 
         service.createCollection();
 
-        expect(service.persistToLocalStorage).toHaveBeenCalled();
+        expect(service.persist).toHaveBeenCalled();
     });
 });
 
 
 class LocalStorageServiceMock {
-
     public getObject(key: string): any { return null; }
-
     public setObject(key: string, data: any) {}
 }

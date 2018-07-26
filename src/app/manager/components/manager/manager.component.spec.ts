@@ -79,10 +79,29 @@ describe('ManagerComponent', () => {
         expect(component.collection.name).toBe('new name');
     }));
 
-    it('should have an exit button', () => {
+    it('should have an exit and save button', () => {
         fixture.detectChanges();
 
-        expect(fixture.nativeElement.querySelector('#exit').innerText).toEqual('Back');
+        expect(fixture.nativeElement.querySelector('#save').innerText).toEqual('Save And Back');
+    });
+
+    it('should persist data through the collections service when pressing the save button', () => {
+        const collectionService: CollectionsService = TestBed.get(CollectionsService);
+        spyOn(collectionService, 'persist');
+        fixture.detectChanges();
+
+        fixture.nativeElement.querySelector('#save').click();
+
+        expect(collectionService.persist).toHaveBeenCalled();
+    });
+
+    it('should navigate back home when pressing the save button', () => {
+        spyOn(component.router, 'navigate');
+        fixture.detectChanges();
+
+        fixture.nativeElement.querySelector('#save').click();
+
+        expect(component.router.navigate).toHaveBeenCalledWith(['/']);
     });
 
     it('should have a button to add a new card', () => {
@@ -258,28 +277,23 @@ class EditStubComponent {
 
 @Injectable()
 class CollectionsStubService {
-
     collection: Collection;
-
     constructor() {
         this.collection = new Collection(1, 'SPANISH');
         this.collection.add(new Card('ser', 'to be (trait)'));
         this.collection.add(new Card('estar', 'to be (state, location)'));
         // remember the skeleton card stub (third item)
     }
-
     getCollection(): Collection {
         return this.collection;
     }
-
     deleteCollection() {}
+    persist() {}
 }
 
 @Injectable()
 class FileReaderStub {
-
     result: string;
     onload: () => void;
-
     readAsText() {}
 }

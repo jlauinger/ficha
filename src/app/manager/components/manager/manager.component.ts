@@ -50,6 +50,11 @@ export class ManagerComponent implements OnInit, OnDestroy {
 
     public deleteCollection() {
         this.collectionsService.deleteCollection(this.collection.id);
+        this.navigateHome();
+    }
+
+    public save() {
+        this.collectionsService.persist();
         this.router.navigate(['/']);
     }
 
@@ -109,5 +114,9 @@ export class ManagerComponent implements OnInit, OnDestroy {
         this.addEmptyCard();
 
         return this.papa.unparse(data, { newline: '\n' });
+    }
+
+    private navigateHome() {
+        this.router.navigate(['/']);
     }
 }

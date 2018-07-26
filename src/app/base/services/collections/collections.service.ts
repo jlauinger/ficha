@@ -33,23 +33,27 @@ export class CollectionsService {
     public deleteCollection(id: number) {
         const index = this.collections.findIndex((collection: Collection) => collection.id === id);
         this.collections.splice(index, 1);
-        this.persistToLocalStorage();
+        this.persist();
     }
 
     public createCollection(name: string = ''): Collection {
         const newCollection = new Collection(this.nextId(), name);
         this.collections.push(newCollection);
-        this.persistToLocalStorage();
+        this.persist();
         return newCollection;
     }
 
-    public persistToLocalStorage() {
-        this.localStorageService.setObject(this.localStorageKey, this.serialize());
+    public persist() {
+        this.persistToLocalStorage();
     }
 
     private nextId(): number {
         const ids = this.collections.map(collection => collection.id);
         return Math.max(0, ...ids) + 1;
+    }
+
+    private persistToLocalStorage() {
+        this.localStorageService.setObject(this.localStorageKey, this.serialize());
     }
 
     private resumeFromLocalStorage() {
