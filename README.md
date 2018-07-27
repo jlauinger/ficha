@@ -9,6 +9,8 @@ Collections are fetched from a server. These are called community collections an
 When a user adds new collections, they are stored in `LocalStorage`. There are no limits whatsoever
 on local content.
 
+Collections can be imported from and exported to CSV files.
+
 The project's name is based on the Spanish translation for index cards.
 
 
