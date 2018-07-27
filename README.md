@@ -35,3 +35,6 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## License
 
 Copyright 2018 Johannes Lauinger
+
+Ficha is free software. It is licensed under the terms of the GNU General Public License,
+version 3 (GPLv3). The GPLv3 is included in the file LICENSE.
