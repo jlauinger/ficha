@@ -3,7 +3,7 @@ import {Collection} from '../../models/collection/collection.model';
 import {SerializedCollections} from './collections.interface';
 import {LocalStorageService} from '../local-storage/local-storage.service';
 import {BackendService} from '../backend/backend.service';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Injectable()
@@ -64,6 +64,12 @@ export class CollectionsService {
         }));
     }
 
+    public getCollection(id: string): Observable<Collection> {
+        return this.collectionIsLocal(id)
+            ? of(this.getLocalCollection(id))
+            : this.getRemoteCollection(id);
+    }
+
     private nextId(): string {
         return Math.random().toString(36).substring(6);
     }
@@ -81,6 +87,12 @@ export class CollectionsService {
     }
 
     private loadRemoteCollections() {
-        this.remoteCollections = this.backendService.getCollections();
+        this.remoteCollections = this.backendService.getCollections().pipe(map((collections) => {
+            return collections.map(collection => Collection.deserialize(collection));
+        }));
+    }
+
+    private collectionIsLocal(id: string) {
+        return this.localCollections.some(collection => collection.id === id);
     }
 }

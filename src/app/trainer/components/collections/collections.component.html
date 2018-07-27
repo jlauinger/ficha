@@ -4,10 +4,10 @@
     <li *ngFor="let collection of remoteCollections | async">
         <a [routerLink]="['/', 'train', collection.id]" class="collection">
             <span class="name">{{ collection.name || '&nbsp;' }}</span>
-            <span class="size">{{ collection.cards.length }} cards</span>
+            <span class="size">{{ collection.size() }} cards</span>
         </a>
         <div class="buttons">
-            <a [routerLink]="['/', 'train', collection.id]" *ngIf="collection.cards.length" class="train">Train</a>
+            <a [routerLink]="['/', 'train', collection.id]" *ngIf="collection.size()" class="train">Train</a>
         </div>
     </li>
 </ul>

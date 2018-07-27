@@ -14,7 +14,7 @@ import {InjectableFileReader} from '../../../base/helpers/injectable-file-reader
 })
 export class ManagerComponent implements OnInit, OnDestroy {
 
-    collection: Collection;
+    collection: Collection = new Collection('', '');
 
     @ViewChild('fileInput') fileInput: ElementRef;
     importFile: File;
@@ -30,7 +30,9 @@ export class ManagerComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         const collectionId = this.route.snapshot.paramMap.get('id');
-        this.collection = this.collectionsService.getLocalCollection(collectionId);
+        this.collectionsService.getCollection(collectionId).subscribe((collection) => {
+            this.collection = collection;
+        });
 
         // add a skeleton input card at the end
         this.addEmptyCard();

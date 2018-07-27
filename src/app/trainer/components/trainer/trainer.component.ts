@@ -11,17 +11,19 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class TrainerComponent implements OnInit {
 
-    collection: Collection;
-    card: Card;
+    collection = new Collection('', '');
+    card = new Card('', '');
 
     constructor(private route: ActivatedRoute,
                 private collectionsService: CollectionsService) {}
 
     ngOnInit() {
         const collectionId = this.route.snapshot.paramMap.get('id');
-        this.collection = this.collectionsService.getLocalCollection(collectionId);
-        this.collection.reset();
-        this.next();
+        this.collectionsService.getCollection(collectionId).subscribe((collection) => {
+            this.collection = collection;
+            this.collection.reset();
+            this.next();
+        });
     }
 
     next() {

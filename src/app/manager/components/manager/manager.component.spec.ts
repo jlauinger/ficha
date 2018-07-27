@@ -12,6 +12,7 @@ import {PapaParseModule} from 'ngx-papaparse';
 import * as FileSaver from 'file-saver';
 import Spy = jasmine.Spy;
 import {InjectableFileReader} from '../../../base/helpers/injectable-file-reader/injectable-file-reader.service';
+import {Observable, of} from 'rxjs';
 
 
 describe('ManagerComponent', () => {
@@ -54,12 +55,12 @@ describe('ManagerComponent', () => {
 
     it('should request the correct collection from CollectionService', () => {
         const collectionService: CollectionsService = TestBed.get(CollectionsService);
-        spyOn(collectionService, 'getLocalCollection').and.callThrough();
+        spyOn(collectionService, 'getCollection').and.callThrough();
         collectionId = '42';
 
         fixture.detectChanges();
 
-        expect(collectionService.getLocalCollection).toHaveBeenCalledWith('42');
+        expect(collectionService.getCollection).toHaveBeenCalledWith('42');
     });
 
     it('should display the collection name in an input field', fakeAsync(() => {
@@ -285,8 +286,8 @@ class CollectionsStubService {
         this.collection.add(new Card('estar', 'to be (state, location)'));
         // remember the skeleton card stub (third item)
     }
-    getLocalCollection(): Collection {
-        return this.collection;
+    getCollection(): Observable<Collection> {
+        return of(this.collection);
     }
     deleteLocalCollection() {}
     persist() {}

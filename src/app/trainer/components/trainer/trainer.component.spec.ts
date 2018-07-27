@@ -7,6 +7,7 @@ import {By} from '@angular/platform-browser';
 import {CollectionsService} from '../../../base/services/collections/collections.service';
 import {ActivatedRoute} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
+import {of} from 'rxjs';
 
 
 describe('TrainerComponent', () => {
@@ -78,12 +79,12 @@ describe('TrainerComponent', () => {
 
     it('should request the correct collection from CollectionService', () => {
         const collectionService: CollectionsService = TestBed.get(CollectionsService);
-        spyOn(collectionService, 'getLocalCollection').and.callThrough();
+        spyOn(collectionService, 'getCollection').and.callThrough();
         collectionId = '42';
 
         fixture.detectChanges();
 
-        expect(collectionService.getLocalCollection).toHaveBeenCalledWith('42');
+        expect(collectionService.getCollection).toHaveBeenCalledWith('42');
     });
 
     it('should reset the collection upon receiving it from the service', () => {
@@ -120,7 +121,7 @@ class CollectionsStubService {
         this.collection.add(new Card('estar', 'to be (state, location)'));
     }
 
-    getLocalCollection() {
-        return this.collection;
+    getCollection() {
+        return of(this.collection);
     }
 }
