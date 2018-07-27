@@ -5,6 +5,10 @@ When learning a collection, the user is presented with one card at a time. They 
 check their solution, or skip the card. There is a feature to automatically check the answer upon
 pressing the `Return` key.
 
+Collections are fetched from a server. These are called community collections and can not be edited.
+When a user adds new collections, they are stored in `LocalStorage`. There are no limits whatsoever
+on local content.
+
 The project's name is based on the Spanish translation for index cards.
 
 
