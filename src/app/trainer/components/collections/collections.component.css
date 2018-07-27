@@ -2,22 +2,25 @@
     padding: 0;
 }
 
-li {
+.padding {
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+}
+.collection-frame {
     list-style-type: none;
     display: inline-block;
     background-color: #cacaca;
-    width: 30%;
-    margin: 0 1rem 1rem 0;
+    width: 100%;
 }
-li:hover {
+.collection-frame:hover {
     background-color: #aac3aa;
 }
 
-li.new, li.new:hover {
+.collection-frame.new, .collection-frame.new:hover {
     background-color: #eee;
 }
 
-li .collection {
+.collection-frame .collection {
     display: inline-block;
     width: 100%;
     min-height: 3rem;
@@ -25,7 +28,7 @@ li .collection {
     text-decoration: none;
     color: #333;
 }
-li a.collection:focus, li a.collection:visited {
+.collection-frame a.collection:focus, .collection-frame a.collection:visited {
     color: #333;
 }
 

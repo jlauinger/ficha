@@ -42,7 +42,7 @@ describe('CollectionsComponent', () => {
     it('should display a list with available collections as links', () => {
         fixture.detectChanges();
 
-        expect(fixture.debugElement.queryAll(By.css('li a .name')).map(
+        expect(fixture.debugElement.queryAll(By.css('a .name')).map(
             (node) => node.nativeElement.innerText))
             .toEqual(['English', 'Spanish', 'German']);
     });

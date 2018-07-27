@@ -39,6 +39,7 @@ button {
     height: 2.5rem;
     border: none;
     margin-right: .4rem;
+    margin-bottom: 1rem;
     padding: 0 1rem;
     cursor: pointer;
     background-color: #cacaca;
@@ -58,10 +59,8 @@ button:hover {
 .form-control {
     display: inline-block;
     position: relative;
-    margin-left: 1rem;
-    padding-left: 35px;
-    padding-top: .2rem;
     margin-bottom: 12px;
+    padding-left: 35px;
     cursor: pointer;
     user-select: none;
 }

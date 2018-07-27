@@ -1,40 +1,48 @@
-<h2>Community Collections</h2>
+<h4>Community Collections</h4>
 
-<ul class="collections">
-    <li *ngFor="let collection of remoteCollections | async">
-        <a [routerLink]="['/', 'train', collection.id]" class="collection">
-            <span class="name">{{ collection.name || '&nbsp;' }}</span>
-            <span class="size">{{ collection.size() }} cards</span>
-        </a>
-        <div class="buttons">
-            <a [routerLink]="['/', 'train', collection.id]" *ngIf="collection.size()" class="train">Train</a>
+<div class="collections grid-x">
+    <div *ngFor="let collection of remoteCollections | async" class="cell large-4 small-12 padding">
+        <div class="collection-frame">
+            <a [routerLink]="['/', 'train', collection.id]" class="collection">
+                <span class="name">{{ collection.name || '&nbsp;' }}</span>
+                <span class="size">{{ collection.size() }} cards</span>
+            </a>
+            <div class="buttons">
+                <a [routerLink]="['/', 'train', collection.id]" *ngIf="collection.size()" class="train">Train</a>
+            </div>
         </div>
-    </li>
-</ul>
+    </div>
+</div>
 
-<h2>Local Collections</h2>
+<div class="padding-top-1"></div>
 
-<ul class="collections">
-    <li *ngFor="let collection of localCollections">
-        <a [routerLink]="mainLinkFor(collection)" class="collection">
-            <span class="name">{{ collection.name || '&nbsp;' }}</span>
-            <span class="size">{{ collection.size() }} cards</span>
-        </a>
-        <div class="buttons">
-            <a [routerLink]="['/', 'train', collection.id]" *ngIf="collection.size()" class="train">Train</a>
-            <a [routerLink]="['/', 'manage', collection.id]" class="manage">Manage</a>
-        </div>
-    </li>
+<h4>Local Collections</h4>
 
-    <li class="new">
-        <div class="collection">
-            <span class="name">
-                <input type="text" [(ngModel)]="newName" (keyup.enter)="new()"
-                       id="newName" placeholder="New..." title="New Name" />
-            </span>
+<div class="collections grid-x">
+    <div *ngFor="let collection of localCollections" class="cell large-4 small-12 padding">
+        <div class="collection-frame">
+            <a [routerLink]="mainLinkFor(collection)" class="collection">
+                <span class="name">{{ collection.name || '&nbsp;' }}</span>
+                <span class="size">{{ collection.size() }} cards</span>
+            </a>
+            <div class="buttons">
+                <a [routerLink]="['/', 'train', collection.id]" *ngIf="collection.size()" class="train">Train</a>
+                <a [routerLink]="['/', 'manage', collection.id]" class="manage">Manage</a>
+            </div>
         </div>
-        <div class="buttons">
-            <button id="new" (click)="new()">Create New Collection</button>
+    </div>
+
+    <div class="cell large-4 small-12 padding">
+        <div class="collection-frame new">
+            <div class="collection">
+                <span class="name">
+                    <input type="text" [(ngModel)]="newName" (keyup.enter)="new()"
+                           id="newName" placeholder="New..." title="New Name" />
+                </span>
+            </div>
+            <div class="buttons">
+                <button id="new" (click)="new()">Create New Collection</button>
+            </div>
         </div>
-    </li>
-</ul>
+    </div>
+</div>

@@ -40,10 +40,10 @@ describe('RootComponent', () => {
         expect(component.title.toLowerCase()).toContain('card');
     });
 
-    it('should render title in a h1 tag', async(() => {
+    it('should render title in a h3 tag', async(() => {
         fixture.detectChanges();
 
-        expect(element.querySelector('h1').textContent).toContain(component.title);
+        expect(element.querySelector('h3').textContent).toContain(component.title);
     }));
 
     it('should display a link to the Github repository', () => {

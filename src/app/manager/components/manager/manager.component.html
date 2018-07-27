@@ -1,23 +1,29 @@
-<input type="text" [(ngModel)]="collection.name" id="name" placeholder="Name" title="Name" />
-<button id="add" (click)="addEmptyCard()">Add A Card</button>
-
-<div class="clearfix"></div>
-<div class="padding-top-1"></div>
-
-<app-edit *ngFor="let card of collection.cards; let last = last;"
-          [card]="card" (deleted)="deleteCard(card)"
-          [skeleton]="last" (created)="addEmptyCard()"></app-edit>
-
-<div class="clearfix"></div>
-
-<div id="importArea">
-    Import a CSV file:
-    <input type="file" #fileInput (change)="fileChanged($event)" id="fileInput"
-           [ngClass]="{ 'error': showFileInputError }" title="CSV file" />
-    <label for="fileInput">{{ getFileInputLabelText() }}</label>
-    <button id="import" (click)="import()">Import</button>
+<div class="grid-x">
+    <div class="cell large-10 small-12 responsive-padding-right">
+        <input type="text" [(ngModel)]="collection.name" id="name" placeholder="Name" title="Name" />
+    </div>
+    <div class="cell large-2 small-12">
+        <button id="add" (click)="addEmptyCard()">Add A Card</button>
+    </div>
 </div>
 
-<button id="exit" (click)="exit()">Save And Back</button>
-<button id="export" (click)="export()">Export</button>
-<button id="delete" (click)="deleteCollection()">Delete Collection</button>
+    <div class="clearfix"></div>
+    <div class="padding-top-1"></div>
+
+    <app-edit *ngFor="let card of collection.cards; let last = last;"
+              [card]="card" (deleted)="deleteCard(card)"
+              [skeleton]="last" (created)="addEmptyCard()"></app-edit>
+
+    <div class="clearfix"></div>
+
+    <div id="importArea">
+        <span class="padding-right-1">Import a CSV file:</span>
+        <input type="file" #fileInput (change)="fileChanged($event)" id="fileInput"
+               [ngClass]="{ 'error': showFileInputError }" title="CSV file" />
+        <label for="fileInput">{{ getFileInputLabelText() }}</label>
+        <button id="import" (click)="import()">Import</button>
+    </div>
+
+    <button id="exit" (click)="exit()">Save And Back</button>
+    <button id="export" (click)="export()">Export</button>
+    <button id="delete" (click)="deleteCollection()">Delete Collection</button>

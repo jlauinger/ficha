@@ -1,8 +1,15 @@
-<input type="text" [(ngModel)]="card.question" [ngClass]="{ 'skeleton': skeleton, 'real': !skeleton }"
-       (keyup)="onKeyUp($event)"
-       id="question" title="Question" placeholder="Question" />
-<input type="text" [(ngModel)]="card.solution" [ngClass]="{ 'skeleton': skeleton, 'real': !skeleton }"
-       (keyup)="onKeyUp($event)"
-       id="solution" title="Solution" placeholder="Solution" />
-
-<button id="delete" (click)="delete()" [hidden]="skeleton" tabindex="9001">Delete</button>
+<div class="grid-x">
+    <div class="cell large-5 small-12">
+        <input type="text" [(ngModel)]="card.question" [ngClass]="{ 'skeleton': skeleton, 'real': !skeleton }"
+               (keyup)="onKeyUp($event)"
+               id="question" title="Question" placeholder="Question" />
+    </div>
+    <div class="cell large-6 small-12">
+        <input type="text" [(ngModel)]="card.solution" [ngClass]="{ 'skeleton': skeleton, 'real': !skeleton }"
+               (keyup)="onKeyUp($event)"
+               id="solution" title="Solution" placeholder="Solution" />
+    </div>
+    <div class="cell large-1 small-12">
+        <button id="delete" (click)="delete()" [hidden]="skeleton" tabindex="9001">Delete</button>
+    </div>
+</div>

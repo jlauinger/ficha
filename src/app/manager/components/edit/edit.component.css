@@ -12,17 +12,16 @@ button:hover {
 
 #delete {
     background-color: #e89393;
-    margin-left: 1rem;
-    float: right;
+    width: 100%;
 }
 
-input.real {
-    border: none;
+input {
     height: 2.5rem;
     padding: .4rem .8rem;
+    margin: 0;
     font-family: monospace;
     font-size: 1.2rem;
-    width: 450px;
+    width: 100%;
 }
 input:focus {
     outline: none;
@@ -31,16 +30,21 @@ input:focus {
 #question.real {
     background-color: #cacaca;
 }
+#question.real::placeholder {
+    color: #444;
+    font-style: italic;
+}
 #solution.real {
     background-color: #333;
     color: #eee;
 }
+#solution.real::placeholder {
+    font-style: italic;
+}
 
+input.real {
+    border: none;
+}
 input.skeleton {
     border: 1px dashed #cacaca;
-    height: 2.5rem;
-    padding: .4rem .8rem;
-    font-family: monospace;
-    font-size: 1.2rem;
-    width: 450px;
 }

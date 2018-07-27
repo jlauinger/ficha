@@ -11,6 +11,8 @@
     <button (click)="markWrong()" [hidden]="!showAnswer" id="markwrong">Ok, wrong. Next!</button>
     <button (click)="skip()" id="skip">Skip</button>
 
+    <div class="padding-right-1 inline-block"></div>
+
     <label class="form-control">
         <input type="checkbox" [(ngModel)]="autoSubmit" id="autosubmit" />
         Check answer when pressing <span class="keycode">Return</span>

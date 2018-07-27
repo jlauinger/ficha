@@ -1,6 +1,6 @@
 app-edit {
     display: block;
-    margin-bottom: .5rem;
+    margin-bottom: 1rem;
 }
 
 #exit {
@@ -23,6 +23,7 @@ button {
     border: none;
     padding: 0 1rem;
     margin-right: .4rem;
+    margin-bottom: .4rem;
     cursor: pointer;
     background-color: #cacaca;
     color: #444;
@@ -33,13 +34,20 @@ button:hover {
 
 #add {
     background-color: #61c361;
-    float: right;
+    margin: 0;
+    width: 100%;
 }
 #delete {
     background-color: #e89393;
 }
 #exit {
     background-color: #61c361;
+}
+
+@media screen and (min-width: 64em) {
+    .responsive-padding-right {
+        padding-right: 1rem;
+    }
 }
 
 #name {
@@ -50,7 +58,7 @@ button:hover {
     padding: .4rem 0;
     font-size: 1.2rem;
     color: #444;
-    width: 600px;
+    width: 100%;
 }
 #name:focus {
     outline: none;
@@ -75,8 +83,11 @@ button:hover {
     cursor: pointer;
     min-width: 200px;
     max-width: 300px;
-    margin: 0 1rem;
-    padding: .6rem 1rem .7rem 1rem;
+    margin: 0 1rem 0 0;
+    padding: .75rem 1rem .75rem 1rem;
+    font-size: 1rem;
+    line-height: 1;
+    color: #444;
 }
 
 #fileInput:focus + label,
