@@ -178,4 +178,18 @@ describe('CardComponent', () => {
 
         expect(component.showAnswer).toBe(false);
     }));
+
+    it('should display a checkbox to toggle shuffle', () => {
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.querySelector('input[type=checkbox]#shuffle')).toBeTruthy();
+    });
+
+    it('should emit a shuffle event when the checkbox is changed', () => {
+        spyOn(component.shuffle, 'emit');
+
+        fixture.nativeElement.querySelector('#shuffle').click();
+
+        expect(component.shuffle.emit).toHaveBeenCalledWith(component.shouldShuffle);
+    });
 });

@@ -18,6 +18,14 @@
         Check answer when pressing <span class="keycode">Return</span>
         <span class="checkmark"></span>
     </label>
+
+    <div class="padding-right-1 inline-block"></div>
+
+    <label class="form-control">
+        <input type="checkbox" [(ngModel)]="shouldShuffle" (click)="emitShuffle()" id="shuffle" />
+        Shuffle cards
+        <span class="checkmark"></span>
+    </label>
 </div>
 
 <div id="solution" [hidden]="!showAnswer">{{ _card.solution }}</div>

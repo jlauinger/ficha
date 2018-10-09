@@ -15,12 +15,14 @@ export class CardComponent {
     }
 
     @Output() next = new EventEmitter<void>();
+    @Output() shuffle = new EventEmitter<boolean>();
 
     _card: Card;
     answer = '';
     showAnswer = false;
     answerIsCorrect = false;
     autoSubmit = true;
+    shouldShuffle = true;
 
     public check() {
         this.showAnswer = true;
@@ -41,6 +43,10 @@ export class CardComponent {
 
     public markWrong() {
         this.next.emit();
+    }
+
+    public emitShuffle() {
+        this.shuffle.emit(this.shouldShuffle);
     }
 
     public shouldDisplayRight() {
