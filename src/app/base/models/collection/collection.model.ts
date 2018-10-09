@@ -1,6 +1,5 @@
 import {Card} from '../card/card.model';
 import {SerializedCollection} from './collection.interface';
-import {SerializedCard} from '../card/card.interface';
 
 /*
  * A collection represents a set of cards that belong together. Collections can combine cards of similar topic. Collections can be:
