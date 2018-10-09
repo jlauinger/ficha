@@ -78,7 +78,7 @@ export class Collection {
         this.reset();
 
         if (shouldShuffle) {
-            _.shuffle(this.cardsToShow);
+            this.cardsToShow = _.shuffle(this.cardsToShow);
         }
     }
 

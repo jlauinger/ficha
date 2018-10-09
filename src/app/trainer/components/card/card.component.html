@@ -22,7 +22,7 @@
     <div class="padding-right-1 inline-block"></div>
 
     <label class="form-control">
-        <input type="checkbox" [(ngModel)]="shouldShuffle" (click)="emitShuffle()" id="shuffle" />
+        <input type="checkbox" [(ngModel)]="shouldShuffle" (change)="emitShuffle()" id="shuffle" />
         Shuffle cards
         <span class="checkmark"></span>
     </label>

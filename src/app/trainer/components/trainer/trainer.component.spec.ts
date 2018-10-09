@@ -77,6 +77,33 @@ describe('TrainerComponent', () => {
         expect(component.card).not.toBe(oldCard);
     });
 
+    it('should inform the collection about a changed shuffle state', () => {
+        fixture.detectChanges();
+        spyOn(component.collection, 'setShuffle');
+
+        fixture.debugElement.query(By.directive(CardStubComponent)).componentInstance.shuffle.emit(true);
+
+        expect(component.collection.setShuffle).toHaveBeenCalledWith(true);
+    });
+
+    it('should initially shuffle the collection', () => {
+        fixture.detectChanges();
+        spyOn(component.collection, 'setShuffle');
+
+        component.ngOnInit();
+
+        expect(component.collection.setShuffle).toHaveBeenCalledWith(true);
+    });
+
+    it('should call next after setShuffle, so that the collection index is updated correctly', () => {
+        fixture.detectChanges();
+        spyOn(component, 'next');
+
+        fixture.debugElement.query(By.directive(CardStubComponent)).componentInstance.shuffle.emit(true);
+
+        expect(component.next).toHaveBeenCalled();
+    });
+
     it('should request the correct collection from CollectionService', () => {
         const collectionService: CollectionsService = TestBed.get(CollectionsService);
         spyOn(collectionService, 'getCollection').and.callThrough();
@@ -109,6 +136,7 @@ describe('TrainerComponent', () => {
 class CardStubComponent {
     @Input() card: Card;
     @Output() next = new EventEmitter<void>();
+    @Output() shuffle = new EventEmitter<boolean>();
 }
 
 @Injectable()

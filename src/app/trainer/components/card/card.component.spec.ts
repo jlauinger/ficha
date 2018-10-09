@@ -186,6 +186,7 @@ describe('CardComponent', () => {
     });
 
     it('should emit a shuffle event when the checkbox is changed', () => {
+        fixture.detectChanges();
         spyOn(component.shuffle, 'emit');
 
         fixture.nativeElement.querySelector('#shuffle').click();

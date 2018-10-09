@@ -21,6 +21,7 @@ export class TrainerComponent implements OnInit {
         const collectionId = this.route.snapshot.paramMap.get('id');
         this.collectionsService.getCollection(collectionId).subscribe((collection) => {
             this.collection = collection;
+            this.collection.setShuffle(true);
             this.collection.reset();
             this.next();
         });
@@ -28,5 +29,10 @@ export class TrainerComponent implements OnInit {
 
     next() {
         this.card = this.collection.nextCard();
+    }
+
+    shuffle(shouldShuffle: boolean) {
+        this.collection.setShuffle(shouldShuffle);
+        this.next();
     }
 }
