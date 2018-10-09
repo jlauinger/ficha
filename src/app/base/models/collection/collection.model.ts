@@ -1,5 +1,6 @@
 import {Card} from '../card/card.model';
 import {SerializedCollection} from './collection.interface';
+import * as _ from 'lodash';
 
 /*
  * A collection represents a set of cards that belong together. Collections can combine cards of similar topic. Collections can be:
@@ -10,10 +11,12 @@ export class Collection {
 
     public cards: Card[];
 
+    private cardsToShow: Card[];
     private currentCardIndex: number;
 
     constructor(public id: string, public name: string = '') {
         this.cards = [];
+        this.cardsToShow = [];
         this.currentCardIndex = -1;
     }
 
@@ -21,6 +24,7 @@ export class Collection {
         const collection = new Collection(serialized.id, serialized.name);
         collection.currentCardIndex = serialized.currentCardIndex;
         collection.cards = serialized.cards.map(c => Card.deserialize(c));
+        collection.cardsToShow = Array.from(collection.cards);
         return collection;
     }
 
@@ -39,20 +43,22 @@ export class Collection {
 
     public add(card: Card) {
         this.cards.push(card);
+        this.reset();
     }
 
     public remove(card: Card) {
         this.cards.splice(this.cards.indexOf(card), 1);
+        this.reset();
     }
 
     public nextCard(): Card {
-        if (this.cards.length === 0) {
+        if (this.cardsToShow.length === 0) {
             throw new Error('Collection is empty.');
         }
 
         this.currentCardIndex = this.nextCardIndex();
 
-        return this.cards[this.currentCardIndex];
+        return this.cardsToShow[this.currentCardIndex];
     }
 
     public currentCardNumber() {
@@ -60,15 +66,24 @@ export class Collection {
     }
 
     public remainingCards() {
-        return this.cards.length - this.currentCardIndex;
+        return this.cardsToShow.length - this.currentCardIndex;
     }
 
     public reset() {
+        this.cardsToShow = Array.from(this.cards);
         this.currentCardIndex = -1;
     }
 
+    public setShuffle(shouldShuffle: boolean) {
+        this.reset();
+
+        if (shouldShuffle) {
+            _.shuffle(this.cardsToShow);
+        }
+    }
+
     private nextCardIndex(): number {
-        if (this.currentCardIndex >= this.cards.length - 1) {
+        if (this.currentCardIndex >= this.cardsToShow.length - 1) {
             return 0;
         }
 

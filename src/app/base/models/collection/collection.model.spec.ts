@@ -1,5 +1,6 @@
 import {Collection} from './collection.model';
 import {Card} from '../card/card.model';
+import * as _ from 'lodash';
 
 describe('Collection', () => {
 
@@ -72,6 +73,23 @@ describe('Collection', () => {
         collection.reset();
 
         expect(collection.nextCard()).toBe(serCard);
+    });
+
+    it('should not shuffle cards when shuffle is deactivated', () => {
+        spyOn(_, 'shuffle');
+
+        collection.setShuffle(false);
+
+        expect(_.shuffle).not.toHaveBeenCalled();
+        expect(collection.nextCard()).toBe(serCard);
+    });
+
+    it('should shuffle cards when shuffle is activated', () => {
+        spyOn(_, 'shuffle');
+
+        collection.setShuffle(true);
+
+        expect(_.shuffle).toHaveBeenCalledWith(collection.cards);
     });
 
     it('should remove the correct card', () => {
